@@ -1,4 +1,5 @@
 #include "VideoCacheManager.h"
+#include "VideoDownloaderJNI.h"
 #include <jni.h>
 #include <string>
 #include <sstream>
