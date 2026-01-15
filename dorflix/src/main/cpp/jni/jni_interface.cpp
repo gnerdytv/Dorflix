@@ -1524,7 +1524,7 @@ static const JNINativeMethod memoryManagerMethods[] = {
 };
 
 static const JNINativeMethod codecEnumeratorMethods[] = {
-    {"storeCodecInfo", "(Ljava/lang/String;Ljava/lang/String;ZZIIII)V", (void*)Java_com_dorflix_app_CodecEnumerator_storeCodecInfo},
+    {"storeCodecInfo", "(Ljava/lang/String;Ljava/lang/String;ZZIIII[Ljava/lang/String;[Ljava/lang/String;I)V", (void*)Java_com_dorflix_app_CodecEnumerator_storeCodecInfo},
     {"signalEnumerationComplete", "(I)V", (void*)Java_com_dorflix_app_CodecEnumerator_signalEnumerationComplete},
 };
 
@@ -1697,4 +1697,44 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
         totalClassesSuccessful++;
         totalMethodsRegistered += sizeof(memoryManagerMethods) / sizeof(memoryManagerMethods[0]);
     } 
+
+    // ===== CODEC ENUMERATOR REGISTRATION =====
+    LOGI("=' Registering CodecEnumerator methods...");
+    totalClassesAttempted++;
+
+    jclass codecEnumeratorClass = env->FindClass("com/dorflix/app/CodecEnumerator");
+    if (codecEnumeratorClass == nullptr) {
+        LOGE("L Failed to find CodecEnumerator class - aborting JNI initialization");
+
+        // Check for exceptions
+        if (env->ExceptionCheck()) {
+            LOGE("  � Exception during FindClass:");
+            env->ExceptionDescribe();
+            env->ExceptionClear();
+        }
+        return -1;
+    }
+
+    LOGI(" Found CodecEnumerator class: %p", codecEnumeratorClass);
+    LOGI("  � Attempting to register %d methods", sizeof(codecEnumeratorMethods) / sizeof(codecEnumeratorMethods[0]));
+
+    result = env->RegisterNatives(codecEnumeratorClass, codecEnumeratorMethods,
+                                sizeof(codecEnumeratorMethods) / sizeof(codecEnumeratorMethods[0]));
+    if (result < 0) {
+        LOGE("L Failed to register CodecEnumerator native methods (error code: %d)", result);
+
+        // Check for pending exceptions
+        if (env->ExceptionCheck()) {
+            LOGE("  � Exception occurred during RegisterNatives:");
+            env->ExceptionDescribe();
+            env->ExceptionClear();
+        }
+        return -1;
+    }
+
+    LOGI(" Successfully registered CodecEnumerator native methods (%d methods)",
+        sizeof(codecEnumeratorMethods) / sizeof(codecEnumeratorMethods[0]));
+    totalClassesSuccessful++;
+    totalMethodsRegistered += sizeof(codecEnumeratorMethods) / sizeof(codecEnumeratorMethods[0]);
+
 }
