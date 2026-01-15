@@ -14,6 +14,10 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlin.system.measureTimeMillis
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Kotlin version of Java bridge for MediaCodec enumeration
@@ -1498,6 +1502,44 @@ class CodecEnumerator private constructor() {
                 val errorTime = System.currentTimeMillis() - totalStartTime
                 Log.e(TAG, "❌ [ENUMERATION_FAILED] Fatal error after ${errorTime}ms: ${e.message}", e)
                 CodecEnumerator.signalEnumerationComplete(0)
+            }
+        }
+
+        /**
+         * Asynchronous codec enumeration with proper thread management
+         * Runs enumeration on IO thread, processes on Default thread, calls back on Main thread
+         * @param callback Callback function to receive the enumerated codec list
+         * @param validate Whether to perform full validation (default: true)
+         * @param measurePerformance Whether to measure codec performance (default: false)
+         */
+        @JvmStatic
+        fun enumerateAllCodecsAsync(
+            callback: (List<CodecInfo>) -> Unit,
+            validate: Boolean = true,
+            measurePerformance: Boolean = false
+        ) {
+            Log.i(TAG, "🚀 [ASYNC_ENUM_START] Starting asynchronous codec enumeration (validate=$validate, measurePerformance=$measurePerformance)")
+
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    // Perform enumeration on IO dispatcher
+                    val result = withContext(Dispatchers.Default) {
+                        Log.v(TAG, "⚙️ [ASYNC_ENUM_PROCESSING] Processing codecs on Default dispatcher")
+                        enumerateCodecs(validate, measurePerformance)
+                    }
+
+                    // Call back on Main thread
+                    withContext(Dispatchers.Main) {
+                        Log.i(TAG, "✅ [ASYNC_ENUM_COMPLETE] Enumeration completed, ${result.size} codecs found")
+                        callback(result)
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "❌ [ASYNC_ENUM_ERROR] Asynchronous enumeration failed: ${e.message}", e)
+                    // Call back with empty list on error
+                    withContext(Dispatchers.Main) {
+                        callback(emptyList())
+                    }
+                }
             }
         }
 }
