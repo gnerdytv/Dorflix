@@ -1737,4 +1737,99 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
     totalClassesSuccessful++;
     totalMethodsRegistered += sizeof(codecEnumeratorMethods) / sizeof(codecEnumeratorMethods[0]);
 
-}
+    // ===== DORFLIX APPLICATION REGISTRATION =====
+    LOGI("=' Registering DorflixApplication methods...");
+    totalClassesAttempted++;
+
+    jclass dorflixApplicationClass = env->FindClass("com/dorflix/app/DorflixApplication");
+    if (dorflixApplicationClass == nullptr) {
+        LOGE("L Failed to find DorflixApplication class - aborting JNI initialization");
+        
+        // Check for exceptions
+        if (env->ExceptionCheck()) {
+            LOGE("  � Exception during FindClass:");
+            env->ExceptionDescribe();
+            env->ExceptionClear();
+        }
+        return -1;
+    }
+
+    LOGI(" Found DorflixApplication class: %p", dorflixApplicationClass);
+    LOGI("  � Attempting to register %d methods", sizeof(dorflixApplicationMethods) / sizeof(dorflixApplicationMethods[0]));
+
+    result = env->RegisterNatives(dorflixApplicationClass, dorflixApplicationMethods,
+                                sizeof(dorflixApplicationMethods) / sizeof(dorflixApplicationMethods[0]));
+    if (result < 0) {
+        LOGE("L Failed to register DorflixApplication native methods (error code: %d)", result);
+        
+        // Check for pending exceptions
+        if (env->ExceptionCheck()) {
+            LOGE("  � Exception occurred during RegisterNatives:");
+            env->ExceptionDescribe();
+            env->ExceptionClear();
+        }
+        return -1;
+    }
+
+    LOGI(" Successfully registered DorflixApplication native methods (%d methods)",
+        sizeof(dorflixApplicationMethods) / sizeof(dorflixApplicationMethods[0]));
+    totalClassesSuccessful++;
+    totalMethodsRegistered += sizeof(dorflixApplicationMethods) / sizeof(dorflixApplicationMethods[0]);
+
+
+    // ===== VIDEO DOWNLOADER REGISTRATION =====
+    LOGI("=' Registering VideoDownloader methods...");
+    totalClassesAttempted++;
+
+    jclass videoDownloaderClass = env->FindClass("com/dorflix/app/video/VideoDownloader");
+    if (videoDownloaderClass == nullptr) {
+        LOGE("L Failed to find VideoDownloader class - aborting JNI initialization");
+        
+        // Check for exceptions
+        if (env->ExceptionCheck()) {
+            LOGE("  � Exception during FindClass:");
+            env->ExceptionDescribe();
+            env->ExceptionClear();
+        }
+        return -1;
+    }
+
+    LOGI(" Found VideoDownloader class: %p", videoDownloaderClass);
+    LOGI("  � Attempting to register %d methods", sizeof(videoDownloaderMethods) / sizeof(videoDownloaderMethods[0]));
+
+    result = env->RegisterNatives(videoDownloaderClass, videoDownloaderMethods,
+                                sizeof(videoDownloaderMethods) / sizeof(videoDownloaderMethods[0]));
+    if (result < 0) {
+        LOGE("L Failed to register VideoDownloader native methods (error code: %d)", result);
+        
+        // Check for pending exceptions
+        if (env->ExceptionCheck()) {
+            LOGE("  � Exception occurred during RegisterNatives:");
+            env->ExceptionDescribe();
+            env->ExceptionClear();
+        }
+        return -1;
+    }
+
+    LOGI(" Successfully registered VideoDownloader native methods (%d methods)",
+        sizeof(videoDownloaderMethods) / sizeof(videoDownloaderMethods[0]));
+    totalClassesSuccessful++;
+    totalMethodsRegistered += sizeof(videoDownloaderMethods) / sizeof(videoDownloaderMethods[0]);
+    
+    
+    // ===== JNI REGISTRATION COMPLETE =====
+    LOGI("=== JNI REGISTRATION COMPLETE ===");
+    LOGI("Total classes attempted: %d", totalClassesAttempted);
+    LOGI("Total classes successful: %d", totalClassesSuccessful);
+    LOGI("Total methods registered: %d", totalMethodsRegistered);
+
+    // Set JNI readiness flag
+    g_jniReady = true;
+    LOGI(" JNI library ready for use");
+
+    JNI_LOG_PERF("JNI_OnLoad", startTime);
+    JNI_LOG_EXIT("JNI_OnLoad", true);
+
+    // Return the JNI version
+    return JNI_VERSION_1_6;
+    }
