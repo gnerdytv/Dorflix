@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="pink_reels">#FE2C55</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_800">#212121</color>
+    <color name="gray_900">#000000</color>
+    
+    <!-- Material Design colors -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    
+    <!-- Theme colors -->
+    <color name="primary">#6200EE</color>
+    <color name="primary_dark">#3700B3</color>
+    <color name="secondary">#03DAC5</color>
+    <color name="secondary_dark">#018786</color>
+    <color name="background">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+    
+    <!-- Text colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    
+    <!-- Bottom Navigation colors -->
+    <color name="bottom_nav_selected">#FE2C55</color>
+    <color name="bottom_nav_unselected">#757575</color>
+</resources>

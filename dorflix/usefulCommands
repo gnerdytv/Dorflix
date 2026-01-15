@@ -1,0 +1,77 @@
+### __Hybrid Enhancement (TikTok-style):__
+
+Later we can add intelligent caching for the next 2-3 videos in the feed.
+
+
+adb logcat | Select-String -Pattern "(ffmpeg|avcodec|avformat|swscale|DorflixJNI)" -CaseSensitive
+
+adb logcat | Select-String -Pattern "DorflixJNI"
+
+adb logcat | Select-String -Pattern "(VIDEO LOADING|DorflixJNI)" -CaseSensitive
+
+adb logcat | Select-String -Pattern "(Exception|Error|Failed)" -CaseSensitive
+
+.\gradlew clean installDebug
+
+litellm --model qwen2 --port 4000
+
+adb logcat | Select-String -Pattern "Video"
+adb logcat -c; adb logcat | Select-String -Pattern "FeedFragment|VideoViewModel|VideoPlayerFragment"
+adb logcat | Select-String -Pattern "AUTO-PLAY|VideoViewModel|VideoPlayerFragment"
+adb logcat -v threadtime -s "FeedFragment:I FeedFragment:W FeedFragment:E" | Select-String -Pattern "(AUTO-PLAY|NAVIGATION|auto-play)"
+adb logcat -v threadtime | Select-String -Pattern "FeedFragment.*(AUTO-PLAY|NAVIGATION|auto-play|FAILED|BLOCKED|COMPLETED|SUCCESS)" 
+adb logcat -v threadtime | Select-String -Pattern "FeedFragment.*(AUTO-PLAY|NAVIGATION|auto-play|FAILED|BLOCKED|COMPLETED|SUCCESS|Thread:|Video:|Fragment State:|Activity State:|Internal Flags)"
+adb logcat -v threadtime | Select-String -Pattern "(FeedFragment.*(AUTO-PLAY|NAVIGATION|auto-play|FAILED|BLOCKED|COMPLETED|SUCCESS)|VideoRepository.*VIDEO.*DEBUG)"
+tracking the video playback
+adb logcat -v threadtime | Select-String -Pattern "VideoPlayerFragment.*(LOAD|START|PLAYBACK|SURFACE|VIDEO.*URL|TRY.*START|TIMEOUT|EXCEPTION|ERROR)"
+best for video and all capture function 
+adb logcat -v threadtime | Select-String -Pattern "(FeedFragment|VideoPlayerFragment|VideoRepository).*(AUTO-PLAY|NAVIGATION|auto-play|FAILED|BLOCKED|COMPLETED|SUCCESS|LOAD|START|PLAYBACK|SURFACE|VIDEO.*URL|TRY.*START|TIMEOUT|EXCEPTION|ERROR|Thread:|Video:|Fragment State:|Activity State:|Internal Flags:|VIDEO.*CATALOG.*DEBUG)"
+apdated with the C++
+adb logcat -v threadtime | Select-String -Pattern "(FeedFragment|VideoPlayerFragment|VideoRepository|DorflixJNI).*(AUTO-PLAY|NAVIGATION|auto-play|FAILED|BLOCKED|COMPLETED|SUCCESS|LOAD|START|PLAYBACK|SURFACE|VIDEO.*URL|TRY.*START|TIMEOUT|EXCEPTION|ERROR|Thread:|Video:|Fragment State:|Activity State:|Internal Flags:|VIDEO.*CATALOG.*DEBUG|VIDEO.*LOADING|CALLBACKS|FFmpeg|nativeLoadVideo|onVideoPrepared|SETUP)"
+with streaming
+adb logcat -v threadtime | Select-String -Pattern "(FeedFragment|VideoPlayerFragment|VideoRepository|DorflixJNI|VideoDecoder).*(AUTO-PLAY|NAVIGATION|auto-play|FAILED|BLOCKED|COMPLETED|SUCCESS|LOAD|START|PLAYBACK|SURFACE|VIDEO.*URL|TRY.*START|TIMEOUT|EXCEPTION|ERROR|Thread:|Video:|Fragment State:|Activity State:|Internal Flags:|VIDEO.*CATALOG.*DEBUG|VIDEO.*LOADING|CALLBACKS|FFmpeg|nativeLoadVideo|onVideoPrepared|SETUP|NETWORK.*URL.*DEBUGGING|NETWORK.*ERROR|POSSIBLE.*CAUSES|CONFIGURING.*NETWORK|HTTPS.*STREAMING)"
+with crash
+adb logcat -v threadtime | Select-String -Pattern "(FeedFragment|VideoPlayerFragment|VideoRepository|DorflixJNI|VideoDecoder|AndroidRuntime|FATAL|CRASH|EXCEPTION|UnsatisfiedLinkError|RuntimeException|Native.*crash|SIGSEGV|SIGABRT).*(AUTO-PLAY|NAVIGATION|auto-play|FAILED|BLOCKED|COMPLETED|SUCCESS|LOAD|START|PLAYBACK|SURFACE|VIDEO.*URL|TRY.*START|TIMEOUT|EXCEPTION|ERROR|Thread:|Video:|Fragment State:|Activity State:|Internal Flags:|VIDEO.*CATALOG.*DEBUG|VIDEO.*LOADING|CALLBACKS|FFmpeg|nativeLoadVideo|onVideoPrepared|SETUP|NETWORK.*URL.*DEBUGGING|NETWORK.*ERROR|POSSIBLE.*CAUSES|CONFIGURING.*NETWORK|HTTPS.*STREAMING|CRASH|FAILED.*LOAD|UNSATISFIED|LINK.*ERROR|RUNTIME.*EXCEPTION|FATAL|NATIVE.*LIBRARY)"
+ultimate crash debugging (with frame lifecycle)
+adb logcat -c; adb logcat -v threadtime | Select-String -Pattern "(SIGSEGV|SIGABRT|FATAL|CRASH|GPU.*RENDER.*FRAME|renderFrame|FRAME.*FREED|av_frame_free|FRAME.*LEAK|DROPPING.*FRAME|FREEING.*FRAME|CLEARING.*AVBUFFER|Calling.*videoRenderCallback|renderIfReady|Sending.*frame|processVideoFrame|FRAME.*VALIDATION|VIDEO.*FRAME.*PTS|buffer.*size|deadline.*not.*reached|FRAME.*READY|FRAME.*DROPPED|FRAME.*LEAK)" -CaseSensitive:$false
+
+with crash
+adb logcat -v threadtime | Select-String -Pattern "(FeedFragment|VideoPlayerFragment|VideoRepository|DorflixJNI|VideoDecoder|AndroidRuntime|FATAL|CRASH|EXCEPTION|UnsatisfiedLinkError|RuntimeException|Native.*crash|SIGSEGV|SIGABRT).*(AUTO-PLAY|NAVIGATION|auto-play|FAILED|BLOCKED|COMPLETED|SUCCESS|LOAD|START|PLAYBACK|SURFACE|VIDEO.*URL|TRY.*START|TIMEOUT|EXCEPTION|ERROR|Thread:|Video:|Fragment State:|Activity State:|Internal Flags:|VIDEO.*CATALOG.*DEBUG|VIDEO.*LOADING|CALLBACKS|FFmpeg|nativeLoadVideo|onVideoPrepared|SETUP|NETWORK.*URL.*DEBUGGING|NETWORK.*ERROR|POSSIBLE.*CAUSES|CONFIGURING.*NETWORK|HTTPS.*STREAMING|CRASH|FAILED.*LOAD|UNSATISFIED|LINK.*ERROR|RUNTIME.*EXCEPTION|FATAL|NATIVE.*LIBRARY)"
+
+
+adb logcat -v threadtime | Select-String -Pattern "(FATAL.*SIGABRT|Fatal signal 6.*SIGABRT)" -CaseSensitive:$false | ndk-stack -sym build/intermediates/merged_native_libs/debug/mergeDebugNativeLibs/out/lib
+adb logcat -v threadtime -T $((Get-Date).AddSeconds(-5).ToString("MM-dd HH:mm:ss.fff")) | Select-String -Pattern "(VideoPlayerFragment|VideoDecoder|DorflixJNI|TIKTOK AUTO-PLAY|VIDEO PREPARATION|SIGABRT|Fatal signal)" -CaseSensitive:$false
+
+
+adb logcat -c; adb logcat | Select-String "VIEWPAGER_DEBUG|SURFACE_DEBUG"
+adb logcat -c; adb logcat | Select-String "PLAYBACK_DEBUG|CACHE_DEBUG|START_DEBUG|PLAY_DEBUG|VIEWPAGER_DEBUG|SURFACE_DEBUG|VideoDecoder|RENDER FRAME|renderFrame|Surface info|Using RGBA|Using RGB565|scaling context|FRAME RENDER"
+
+adb logcat -c; adb logcat -v time | Select-String -Pattern "(CRASH|EXCEPTION|FATAL|SIGSEGV|dorflix|Thread-10|fault|pid|tid)"
+
+
+./gradlew clean
+./gradlew assembleDebug
+adb install -r --no-incremental C:\Users\arthu\Documents\DorflixApp\dorflix\build\outputs\apk\debug\DorflixNative-debug.apk
+adb uninstall com.dorflix.app; adb install -r --no-incremental build\outputs\apk\debug\DorflixNative-debug.apk
+
+./gradlew clean assembleDebug installDebug
+./gradlew clean cleanBuildCache assembleDebug installDebug --no-build-cache --rerun-tasks
+
+
+adb logcat -c; adb logcat -c; adb logcat -v time | Select-String -Pattern "(CRASH|SIGSEGV|PROTECTION ACTIVE|VALIDATION_FAILED|VIDEO|PLAYBACK|renderFrame|Frame validation)" | ForEach-Object {    if ($_ -match "PROTECTION ACTIVE|VALIDATION_FAILED|Frame validation") {        Write-Host " PROTECTION WORKING: $_" -ForegroundColor Green    } elseif ($_ -match "VIDEO|PLAYBACK") {        Write-Host " VIDEO WORKING: $_" -ForegroundColor Cyan    } elseif ($_ -match "CRASH|SIGSEGV|FATAL") {        Write-Host " CRASH STILL: $_" -ForegroundColor Red    } else {        Write-Host "ℹ STATUS: $_" -ForegroundColor Yellow    }}
+
+# Clean all Gradle build artifacts and native builds
+./gradlew clean
+
+# Also clean CMake artifacts if needed
+./gradlew cleanBuildCache
+
+# Remove CMake cache and build directories
+Remove-Item -Recurse -Force .cxx
+Remove-Item -Recurse -Force build\intermediates\cxx
+
+# Rebuild everything including native libraries
+./gradlew assembleDebug --no-build-cache --rerun-tasks
+
+# Install the rebuilt APK on device
+./gradlew uninstallDebug installDebug

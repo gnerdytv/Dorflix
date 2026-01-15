@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.dorflix.app-mergeDebugResources-43:/values-port/values-port.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\arthu\\.gradle\\caches\\8.13\\transforms\\08d3d595212a99f56281feb044394976\\transformed\\appcompat-1.7.0\\res\\values-port\\values-port.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "55",
+                        "endOffsets": "106"
+                    }
+                }
+            ]
+        }
+    ]
+}

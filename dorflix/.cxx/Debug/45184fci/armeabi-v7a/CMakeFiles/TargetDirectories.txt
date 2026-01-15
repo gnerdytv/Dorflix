@@ -1,0 +1,7 @@
+C:/Users/arthu/Documents/DorflixApp/dorflix/.cxx/Debug/45184fci/armeabi-v7a/CMakeFiles/video_decoder.dir
+C:/Users/arthu/Documents/DorflixApp/dorflix/.cxx/Debug/45184fci/armeabi-v7a/CMakeFiles/av_sync.dir
+C:/Users/arthu/Documents/DorflixApp/dorflix/.cxx/Debug/45184fci/armeabi-v7a/CMakeFiles/video_preloader.dir
+C:/Users/arthu/Documents/DorflixApp/dorflix/.cxx/Debug/45184fci/armeabi-v7a/CMakeFiles/memory_manager.dir
+C:/Users/arthu/Documents/DorflixApp/dorflix/.cxx/Debug/45184fci/armeabi-v7a/CMakeFiles/dorflix-native.dir
+C:/Users/arthu/Documents/DorflixApp/dorflix/.cxx/Debug/45184fci/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/arthu/Documents/DorflixApp/dorflix/.cxx/Debug/45184fci/armeabi-v7a/CMakeFiles/rebuild_cache.dir

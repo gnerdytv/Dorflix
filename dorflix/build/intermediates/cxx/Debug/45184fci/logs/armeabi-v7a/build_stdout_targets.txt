@@ -1,0 +1,2 @@
+ninja: Entering directory `C:\Users\arthu\Documents\DorflixApp\dorflix\.cxx\Debug\45184fci\armeabi-v7a'
+ninja: no work to do.

@@ -1,0 +1,126 @@
+[
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_comment.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_comment.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/layout_item_video.xml.flat",
+        "source": "com.dorflix.app-main-47:/layout/item_video.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_add_circle.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_add_circle.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/layout_activity_main.xml.flat",
+        "source": "com.dorflix.app-main-47:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/layout_fragment_search.xml.flat",
+        "source": "com.dorflix.app-main-47:/layout/fragment_search.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/layout_fragment_video_player.xml.flat",
+        "source": "com.dorflix.app-main-47:/layout/fragment_video_player.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_fullscreen_exit.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_fullscreen_exit.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/layout_fragment_library.xml.flat",
+        "source": "com.dorflix.app-main-47:/layout/fragment_library.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_music.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_music.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_profile.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_profile.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_close.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_close.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_button_background.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/button_background.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/color_bottom_nav_colors.xml.flat",
+        "source": "com.dorflix.app-main-47:/color/bottom_nav_colors.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_play.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_play.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_bottom_gradient.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/bottom_gradient.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_home.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_home.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_app_icon.png.flat",
+        "source": "com.dorflix.app-main-47:/drawable/app_icon.png"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_pause.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_pause.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_like.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_like.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/menu_bottom_nav_menu.xml.flat",
+        "source": "com.dorflix.app-main-47:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/layout_activity_splash.xml.flat",
+        "source": "com.dorflix.app-main-47:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_button_round.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/button_round.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_fullscreen.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_fullscreen.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_library.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_library.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_share.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_share.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_arrow_back.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_arrow_back.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_error.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_error.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/layout_fragment_feed.xml.flat",
+        "source": "com.dorflix.app-main-47:/layout/fragment_feed.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_placeholder.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_placeholder.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_eye.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_eye.xml"
+    },
+    {
+        "merged": "com.dorflix.app-debug-45:/drawable_ic_search.xml.flat",
+        "source": "com.dorflix.app-main-47:/drawable/ic_search.xml"
+    }
+]

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS devices (
     device_id VARCHAR(255) UNIQUE NOT NULL,
     device_type VARCHAR(50), -- 'android', 'ios', 'web'
     device_model VARCHAR(100),
-    os_version VARCHAR(50),
+    os_version TEXT,
     app_version VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

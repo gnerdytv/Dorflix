@@ -22,10 +22,27 @@ export class DeviceService {
    */
   static async registerDevice(data: DeviceRegistrationData): Promise<Device> {
     try {
+      // Sanitize/truncate inputs to match DB column limits (avoid insert errors)
+      const sanitized = {
+        deviceId: data.deviceId?.substring(0, 255),
+        deviceType: data.deviceType ? data.deviceType.substring(0, 50) : null,
+        deviceModel: data.deviceModel
+          ? data.deviceModel.substring(0, 100)
+          : null,
+        osVersion: data.osVersion ? data.osVersion.substring(0, 50) : null,
+        appVersion: data.appVersion ? data.appVersion.substring(0, 50) : null,
+      };
+
+      if (data.osVersion && data.osVersion.length > 50) {
+        console.warn(
+          `Truncating osVersion for device ${data.deviceId} to 50 chars`
+        );
+      }
+
       // Check if device already exists
       const existingDeviceResult = await query(
         "SELECT * FROM devices WHERE device_id = $1",
-        [data.deviceId]
+        [sanitized.deviceId]
       );
 
       let device: Device;
@@ -34,37 +51,34 @@ export class DeviceService {
         // Update existing device
         const updateResult = await query(
           `UPDATE devices 
-           SET device_name = COALESCE($2, device_name),
-               device_type = COALESCE($3, device_type),
-               device_model = COALESCE($4, device_model),
-               os_version = COALESCE($5, os_version),
-               app_version = COALESCE($6, app_version),
+           SET device_type = COALESCE($2, device_type),
+               device_model = COALESCE($3, device_model),
+               os_version = COALESCE($4, os_version),
+               app_version = COALESCE($5, app_version),
                updated_at = NOW()
            WHERE device_id = $1
            RETURNING *`,
           [
-            data.deviceId,
-            data.deviceName,
-            data.deviceType,
-            data.deviceModel,
-            data.osVersion,
-            data.appVersion,
+            sanitized.deviceId,
+            sanitized.deviceType,
+            sanitized.deviceModel,
+            sanitized.osVersion,
+            sanitized.appVersion,
           ]
         );
         device = updateResult.rows[0];
       } else {
         // Create new device
         const insertResult = await query(
-          `INSERT INTO devices (device_id, device_name, device_type, device_model, os_version, app_version)
-           VALUES ($1, $2, $3, $4, $5, $6)
+          `INSERT INTO devices (device_id, device_type, device_model, os_version, app_version)
+           VALUES ($1, $2, $3, $4, $5)
            RETURNING *`,
           [
-            data.deviceId,
-            data.deviceName,
-            data.deviceType,
-            data.deviceModel,
-            data.osVersion,
-            data.appVersion,
+            sanitized.deviceId,
+            sanitized.deviceType,
+            sanitized.deviceModel,
+            sanitized.osVersion,
+            sanitized.appVersion,
           ]
         );
         device = insertResult.rows[0];
@@ -82,10 +96,22 @@ export class DeviceService {
    */
   static async createSession(deviceId: string): Promise<DeviceSessionData> {
     try {
+      // Get the device UUID from the device_id string
+      const deviceResult = await query(
+        "SELECT id FROM devices WHERE device_id = $1",
+        [deviceId]
+      );
+
+      if (deviceResult.rows.length === 0) {
+        throw new Error("Device not found");
+      }
+
+      const deviceUUID = deviceResult.rows[0].id;
+
       // Invalidate any existing active sessions for this device
       await query(
         "UPDATE device_sessions SET is_active = false WHERE device_id = $1 AND is_active = true",
-        [deviceId]
+        [deviceUUID]
       );
 
       // Create new session
@@ -97,7 +123,7 @@ export class DeviceService {
         `INSERT INTO device_sessions (device_id, session_token, expires_at)
          VALUES ($1, $2, $3)
          RETURNING *`,
-        [deviceId, sessionToken, expiresAt]
+        [deviceUUID, sessionToken, expiresAt]
       );
 
       const session = insertResult.rows[0];
@@ -136,7 +162,7 @@ export class DeviceService {
   ): Promise<DeviceSession | null> {
     try {
       const result = await query(
-        `SELECT ds.*, d.device_id, d.device_name, d.device_type
+        `SELECT ds.*, d.device_id, d.device_type
          FROM device_sessions ds
          JOIN devices d ON ds.device_id = d.id
          WHERE ds.session_token = $1 

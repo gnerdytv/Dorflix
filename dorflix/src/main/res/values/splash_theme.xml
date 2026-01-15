@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Splash Screen Theme -->
+    <style name="Theme.DorflixNative.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Set window background to solid color to avoid flicker -->
+        <item name="android:windowBackground">@color/background</item>
+        
+        <!-- Remove title bar -->
+        <item name="android:windowNoTitle">true</item>
+        
+        <!-- Make fullscreen -->
+        <item name="android:windowFullscreen">true</item>
+        
+        <!-- Remove content overlay -->
+        <item name="android:windowContentOverlay">@null</item>
+        
+        <!-- Remove action bar -->
+        <item name="android:windowActionBar">false</item>
+        
+        <!-- Set status bar color -->
+        <item name="android:statusBarColor">@color/background</item>
+        
+        <!-- Set navigation bar color -->
+        <item name="android:navigationBarColor">@color/background</item>
+        
+        <!-- Draw system bar backgrounds -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        
+        <!-- Disable transitions for smoother launch -->
+        <item name="android:windowDisablePreview">false</item>
+        
+        <!-- Ensure window is not translucent -->
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+</resources>

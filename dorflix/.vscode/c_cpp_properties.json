@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "name": "Android NDK",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/src/main/cpp/ffmpeg/include",
+        "C:/Users/arthu/AppData/Local/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include",
+        "C:/Users/arthu/AppData/Local/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/android",
+        "C:/Users/arthu/AppData/Local/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/aarch64-linux-android",
+        "C:/Users/arthu/AppData/Local/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/arm-linux-androideabi",
+        "C:/Users/arthu/AppData/Local/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android",
+        "C:/Users/arthu/AppData/Local/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/i686-linux-android"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE",
+        "__ANDROID_API__=24"
+      ],
+      "compilerPath": "C:/Users/arthu/AppData/Local/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe",
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "clang-x64"
+    }
+  ],
+  "version": 4
+}

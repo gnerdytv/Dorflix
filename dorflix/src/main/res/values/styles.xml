@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.DorflixNative" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/pink_reels</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/black</item>
-    </style>
-
+    <!-- 
+         Note: Theme.DorflixNative has been moved to themes.xml
+         to follow Material Design 3 theming guidelines.
+         Keep only additional style definitions here.
+    -->
+    
     <style name="CircleAppearance">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>

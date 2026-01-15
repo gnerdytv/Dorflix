@@ -1,0 +1,96 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "dorflix_video",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "av_sync::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-av_sync-Debug-9b742d6f4641d3e3fd7a.json",
+					"name" : "av_sync",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dorflix-native::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dorflix-native-Debug-b15533e41ecf721f92b6.json",
+					"name" : "dorflix-native",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "memory_manager::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-memory_manager-Debug-f6ba1b9db782e8a39de4.json",
+					"name" : "memory_manager",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "video_decoder::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-video_decoder-Debug-858b01d26fe0014cd95e.json",
+					"name" : "video_decoder",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "video_preloader::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-video_preloader-Debug-d44d5ef430755a7271d2.json",
+					"name" : "video_preloader",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/arthu/Documents/DorflixApp/dorflix/.cxx/Debug/45184fci/armeabi-v7a",
+		"source" : "C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

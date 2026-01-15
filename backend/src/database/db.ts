@@ -27,6 +27,17 @@ export const testConnection = async () => {
   }
 };
 
+// Connect to database
+export const connectDatabase = async () => {
+  try {
+    await testConnection();
+    console.log("Database connection established");
+  } catch (error) {
+    console.error("Failed to connect to database:", error);
+    throw error;
+  }
+};
+
 // Database query helper
 export const query = async (text: string, params?: any[]) => {
   const start = Date.now();
@@ -45,6 +56,7 @@ export const query = async (text: string, params?: any[]) => {
 export interface Device {
   id: string;
   device_id: string;
+  device_name?: string;
   device_type?: string;
   device_model?: string;
   os_version?: string;

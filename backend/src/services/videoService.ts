@@ -111,8 +111,12 @@ export class VideoService {
     deviceId?: string
   ): Promise<VideoWithStats | null> {
     try {
+      console.log(`=== VideoService.getVideoById START ===`);
+      console.log(`Input videoId: '${videoId}'`);
+      console.log(`Input deviceId: '${deviceId || "none"}'`);
+
       let queryText = `
-        SELECT v.*, 
+        SELECT v.*,
                COALESCE(v.likes_count, 0) as likes_count,
                COALESCE(v.comments_count, 0) as comments_count,
                COALESCE(v.shares_count, 0) as shares_count,
@@ -125,21 +129,21 @@ export class VideoService {
 
       if (deviceId) {
         queryText = `
-          SELECT v.*, 
+          SELECT v.*,
                  COALESCE(v.likes_count, 0) as likes_count,
                  COALESCE(v.comments_count, 0) as comments_count,
                  COALESCE(v.shares_count, 0) as shares_count,
                  COALESCE(v.views_count, 0) as views_count,
                  (SELECT EXISTS(
-                   SELECT 1 FROM video_likes vl 
+                   SELECT 1 FROM video_likes vl
                    WHERE vl.video_id = v.id AND vl.device_id = $2
                  )) as is_liked,
                  (SELECT EXISTS(
-                   SELECT 1 FROM watch_progress wp 
+                   SELECT 1 FROM watch_progress wp
                    WHERE wp.video_id = v.id AND wp.device_id = $2 AND wp.is_completed = true
                  )) as is_completed,
-                 (SELECT progress_seconds FROM watch_progress wp 
-                  WHERE wp.video_id = v.id AND wp.device_id = $2 
+                 (SELECT progress_seconds FROM watch_progress wp
+                  WHERE wp.video_id = v.id AND wp.device_id = $2
                   ORDER BY wp.last_watched_at DESC LIMIT 1
                  ) as current_progress
           FROM videos v
@@ -148,8 +152,60 @@ export class VideoService {
         queryParams = [videoId, deviceId];
       }
 
+      console.log(`Executing query:`, queryText);
+      console.log(`Query params:`, queryParams);
+
       const result = await query(queryText, queryParams);
-      return result.rows.length > 0 ? result.rows[0] : null;
+
+      console.log(`Raw database result:`, JSON.stringify(result, null, 2));
+      console.log(`Result rows count: ${result.rows.length}`);
+      console.log(`Result rows:`, result.rows);
+
+      if (result.rows.length > 0) {
+        console.log(`First row data:`, result.rows[0]);
+        console.log(`First row video_url:`, result.rows[0].video_url);
+        console.log(`First row id:`, result.rows[0].id);
+        console.log(`First row title:`, result.rows[0].title);
+      }
+
+      let finalResult: VideoWithStats | null = null;
+
+      if (result.rows.length > 0) {
+        const row = result.rows[0];
+
+        // Explicitly map the database result to ensure proper JSON serialization
+        finalResult = {
+          id: row.id,
+          title: row.title,
+          description: row.description,
+          video_url: row.video_url,
+          thumbnail_url: row.thumbnail_url,
+          duration: row.duration,
+          uploader_name: row.uploader_name,
+          uploader_avatar_url: row.uploader_avatar_url,
+          likes_count: row.likes_count || 0,
+          comments_count: row.comments_count || 0,
+          shares_count: row.shares_count || 0,
+          views_count: row.views_count || 0,
+          is_active: row.is_active,
+          created_at: row.created_at,
+          updated_at: row.updated_at,
+          // Include device-specific fields if they exist
+          ...(row.is_liked !== undefined && { is_liked: row.is_liked }),
+          ...(row.is_completed !== undefined && {
+            is_completed: row.is_completed,
+          }),
+          ...(row.current_progress !== undefined && {
+            current_progress: row.current_progress,
+          }),
+        };
+
+        console.log(`Mapped result:`, finalResult);
+      }
+
+      console.log(`Returning result:`, finalResult);
+
+      return finalResult;
     } catch (error) {
       console.error("Get video by ID error:", error);
       throw new Error("Failed to fetch video");
@@ -418,6 +474,21 @@ export class VideoService {
     } catch (error) {
       console.error("Search videos error:", error);
       throw new Error("Failed to search videos");
+    }
+  }
+
+  /**
+   * Delete video (soft delete)
+   */
+  static async deleteVideo(videoId: string): Promise<void> {
+    try {
+      // Soft delete video
+      await query("UPDATE videos SET is_active = false WHERE id = $1", [
+        videoId,
+      ]);
+    } catch (error) {
+      console.error("Delete video error:", error);
+      throw new Error("Failed to delete video");
     }
   }
 }

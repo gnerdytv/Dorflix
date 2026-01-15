@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#FFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="bottom_nav_selected">#FE2C55</color>
+    <color name="bottom_nav_unselected">#757575</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_800">#212121</color>
+    <color name="gray_900">#000000</color>
+    <color name="pink_reels">#FE2C55</color>
+    <color name="primary">#6200EE</color>
+    <color name="primary_dark">#3700B3</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="secondary">#03DAC5</color>
+    <color name="secondary_dark">#018786</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="action_completed">Action completed successfully</string>
+    <string name="add_comment">Add Comment</string>
+    <string name="app_name">Dorflix</string>
+    <string name="back">Back</string>
+    <string name="checking_network">Checking network connection...</string>
+    <string name="close_error">Close error message</string>
+    <string name="comment">Comment</string>
+    <string name="comments">Comments</string>
+    <string name="comments_title">Comments</string>
+    <string name="completed_videos">Completed Videos</string>
+    <string name="description">Description</string>
+    <string name="error">Error</string>
+    <string name="error_icon">Error icon</string>
+    <string name="error_occurred">An error occurred</string>
+    <string name="fullscreen">Fullscreen</string>
+    <string name="fullscreen_exit">Exit fullscreen</string>
+    <string name="like">Like</string>
+    <string name="likes">Likes</string>
+    <string name="loading">Loading...</string>
+    <string name="nav_feed">Feed</string>
+    <string name="nav_library">Library</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_search">Search</string>
+    <string name="network_unavailable">Network unavailable</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="no_search_results">No results found for your search</string>
+    <string name="no_videos">No videos found</string>
+    <string name="play_pause">Play/Pause</string>
+    <string name="post">Post</string>
+    <string name="profile">Profile</string>
+    <string name="progress_saved">Watch progress saved</string>
+    <string name="retry">Retry</string>
+    <string name="saving_progress">Saving watch progress...</string>
+    <string name="search_hint">Search videos...</string>
+    <string name="share">Share</string>
+    <string name="share_copy_link">Copy Link</string>
+    <string name="share_facebook">Facebook</string>
+    <string name="share_to">Share to</string>
+    <string name="share_twitter">Twitter</string>
+    <string name="share_video">Share Video</string>
+    <string name="share_whatsapp">WhatsApp</string>
+    <string name="shares">Shares</string>
+    <string name="social_activity">Social Activity</string>
+    <string name="statistics">Statistics</string>
+    <string name="success">Success</string>
+    <string name="try_again">Try again</string>
+    <string name="unlike">Unlike</string>
+    <string name="uploaded_on">Uploaded on</string>
+    <string name="uploader">Uploader</string>
+    <string name="video_details">Video Details</string>
+    <string name="video_error_message">Video playback error occurred</string>
+    <string name="videos_watched">Videos Watched</string>
+    <string name="views">Views</string>
+    <string name="watch_time">Watch Time</string>
+    <string name="write_comment">Write a comment...</string>
+    <style name="CircleAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+    <style name="TextAppearance.Dorflix.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+    <style name="Theme.DorflixNative" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        
+        <item name="android:statusBarColor">@android:color/black</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+
+        
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Dorflix.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Dorflix.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Dorflix.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Dorflix.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Dorflix.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Dorflix.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Dorflix.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Dorflix.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Dorflix.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Dorflix.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Dorflix.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Dorflix.Button</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Dorflix.Overline</item>
+    </style>
+    <style name="Theme.DorflixNative.Dark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/gray_800</item>
+        <item name="colorPrimaryVariant">@color/gray_900</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@color/gray_900</item>
+        <item name="android:navigationBarColor">@color/gray_900</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+    <style name="Theme.DorflixNative.Light" parent="Theme.DorflixNative">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
+        <item name="android:navigationBarColor">@color/background</item>
+    </style>
+    <style name="Theme.DorflixNative.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        
+        <item name="android:windowBackground">@color/background</item>
+        
+        
+        <item name="android:windowNoTitle">true</item>
+        
+        
+        <item name="android:windowFullscreen">true</item>
+        
+        
+        <item name="android:windowContentOverlay">@null</item>
+        
+        
+        <item name="android:windowActionBar">false</item>
+        
+        
+        <item name="android:statusBarColor">@color/background</item>
+        
+        
+        <item name="android:navigationBarColor">@color/background</item>
+        
+        
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        
+        
+        <item name="android:windowDisablePreview">false</item>
+        
+        
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+    <style name="Widget.Dorflix.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/bottom_nav_colors</item>
+        <item name="itemTextColor">@color/bottom_nav_colors</item>
+        <item name="elevation">8dp</item>
+    </style>
+    <style name="Widget.Dorflix.Button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">4dp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+    <style name="Widget.Dorflix.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="cornerRadius">4dp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+    <style name="Widget.Dorflix.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/card_background</item>
+    </style>
+</resources>
