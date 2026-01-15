@@ -2,12 +2,23 @@ ninja: Entering directory `C:\Users\arthu\Documents\DorflixApp\dorflix\.cxx\Debu
 [1/2] Building CXX object CMakeFiles/dorflix-native.dir/jni/jni_interface.cpp.o
 FAILED: CMakeFiles/dorflix-native.dir/jni/jni_interface.cpp.o 
 C:\Users\arthu\AppData\Local\Android\Sdk\ndk\25.2.9519653\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe --target=aarch64-none-linux-android24 --sysroot=C:/Users/arthu/AppData/Local/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Ddorflix_native_EXPORTS -IC:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp -IC:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp/ffmpeg/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++17 -fexceptions -frtti -fexceptions -frtti -fno-limit-debug-info  -fPIC -fvisibility=default -std=c++17 -MD -MT CMakeFiles/dorflix-native.dir/jni/jni_interface.cpp.o -MF CMakeFiles\dorflix-native.dir\jni\jni_interface.cpp.o.d -o CMakeFiles/dorflix-native.dir/jni/jni_interface.cpp.o -c C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp/jni/jni_interface.cpp
-C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp/jni/jni_interface.cpp:7:1: error: unknown type name 'JNIEXPORT'
-JNIEXPORT void JNICALL
-^
-C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp/jni/jni_interface.cpp:7:23: error: expected ';' after top level declarator
-JNIEXPORT void JNICALL
-                      ^
-                      ;
-2 errors generated.
+C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp/jni/jni_interface.cpp:1567:10: warning: missing terminating '"' character [-Winvalid-pp-token]
+    LOGI("=
+         ^
+C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp/jni/jni_interface.cpp:1568:47: warning: missing terminating '"' character [-Winvalid-pp-token]
+ JNI_OnLoad called, verifying FFmpeg libraries");
+                                              ^
+C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp/jni/jni_interface.cpp:1567:5: error: unterminated function-like macro invocation
+    LOGI("=
+    ^
+C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp/jni/jni_interface.cpp:19:9: note: macro 'LOGI' defined here
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+        ^
+C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp/jni/jni_interface.cpp:1701:2: error: expected '}'
+}
+ ^
+C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp/jni/jni_interface.cpp:1544:63: note: to match this '{'
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
+                                                              ^
+2 warnings and 2 errors generated.
 ninja: build stopped: subcommand failed.

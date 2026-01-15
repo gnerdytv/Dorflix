@@ -22,17 +22,19 @@ extern void resetCodecEnumeration();
 extern "C" {
 #endif
 
-// JNI callback functions for CodecEnumerator
+// JNI callback functions for CodecEnumerator - matches Kotlin external declarations
 JNIEXPORT void JNICALL
-Java_com_dorflix_app_CodecEnumerator_onCodecEnumerated(
+Java_com_dorflix_app_CodecEnumerator_storeCodecInfo(
     JNIEnv* env, jclass clazz,
     jstring name, jstring mimeType,
     jboolean isEncoder, jboolean isHardware,
     jint maxWidth, jint maxHeight,
-    jint profile, jint level);
+    jint profile, jint level,
+    jobjectArray hdrSupport, jobjectArray colorFormats,
+    jint maxBitrate);
 
 JNIEXPORT void JNICALL
-Java_com_dorflix_app_CodecEnumerator_onEnumerationComplete(JNIEnv* env, jclass clazz, jint totalCodecs);
+Java_com_dorflix_app_CodecEnumerator_signalEnumerationComplete(JNIEnv* env, jclass clazz, jint totalCodecs);
 
 #ifdef __cplusplus
 }

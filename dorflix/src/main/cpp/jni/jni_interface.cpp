@@ -1564,8 +1564,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
 
     LOGI(" JNI environment acquired: %p, Version: %d", env, JNI_VERSION_1_6);
 
-    LOGI("=
- JNI_OnLoad called, verifying FFmpeg libraries");
+    LOGI("JNI_OnLoad called, verifying FFmpeg libraries");
 
     static const JNINativeMethod dorflixApplicationMethods[] = {
     {"isJNILibraryReady", "()Z", (void*)Java_com_dorflix_app_DorflixApplication_isJNILibraryReady},

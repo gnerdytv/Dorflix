@@ -43,14 +43,48 @@ std::string VideoCacheManager::downloadVideo(const std::string& url) {
         return cachedPath;
     }
 
-    // Generate cache filename
+    // Generate cache filename and full path
     std::string cacheFilename = generateCacheFilename(url);
-    CACHE_LOGI("Cache filename: %s", cacheFilename.c_str());
+    std::string cachePath = m_cacheDir + "/" + cacheFilename;
+    CACHE_LOGI("Cache filename: %s, full path: %s", cacheFilename.c_str(), cachePath.c_str());
 
-    // TODO: Call JNI to start download via Kotlin
-    // For now, return empty string (will be completed when JNI is updated)
-    CACHE_LOGI("Download request queued (JNI integration pending)");
-    return "";
+    // Check if we have a global video downloader instance
+    if (!g_videoDownloader) {
+        CACHE_LOGE("No global video downloader available");
+        return "";
+    }
+
+    // Use the global video downloader to download the video
+    CACHE_LOGI("Starting download via global video downloader...");
+    std::string downloadedPath = g_videoDownloader->downloadVideo(url);
+
+    if (downloadedPath.empty()) {
+        CACHE_LOGE("Download failed - empty path returned");
+        return "";
+    }
+
+    // Check if the downloaded file exists and copy it to cache if needed
+    struct stat st;
+    if (stat(downloadedPath.c_str(), &st) != 0) {
+        CACHE_LOGE("Downloaded file does not exist: %s", downloadedPath.c_str());
+        return "";
+    }
+
+    // If the downloaded file is already in the cache directory, we're done
+    if (downloadedPath.find(m_cacheDir) == 0) {
+        CACHE_LOGI("Video downloaded directly to cache: %s", downloadedPath.c_str());
+        return downloadedPath;
+    }
+
+    // Copy the downloaded file to cache directory
+    CACHE_LOGI("Copying downloaded file to cache directory...");
+    if (!copyFileToCache(downloadedPath, cachePath)) {
+        CACHE_LOGE("Failed to copy downloaded file to cache");
+        return "";
+    }
+
+    CACHE_LOGI("Video successfully downloaded and cached: %s", cachePath.c_str());
+    return cachePath;
 }
 
 bool VideoCacheManager::isCached(const std::string& url) {
@@ -174,6 +208,39 @@ bool VideoCacheManager::isFileComplete(const std::string& path) {
     // In a more robust implementation, we could check for MP4 moov atom
     // or store completion markers
     return st.st_size > 0;
+}
+
+// Helper method to copy downloaded file to cache directory
+bool VideoCacheManager::copyFileToCache(const std::string& sourcePath, const std::string& destPath) {
+    CACHE_LOGI("Copying file from %s to %s", sourcePath.c_str(), destPath.c_str());
+
+    std::ifstream sourceFile(sourcePath, std::ios::binary);
+    if (!sourceFile.is_open()) {
+        CACHE_LOGE("Failed to open source file: %s", sourcePath.c_str());
+        return false;
+    }
+
+    std::ofstream destFile(destPath, std::ios::binary);
+    if (!destFile.is_open()) {
+        CACHE_LOGE("Failed to open destination file: %s", destPath.c_str());
+        sourceFile.close();
+        return false;
+    }
+
+    // Copy file contents
+    destFile << sourceFile.rdbuf();
+
+    sourceFile.close();
+    destFile.close();
+
+    if (!destFile.good()) {
+        CACHE_LOGE("Error occurred during file copy");
+        remove(destPath.c_str()); // Clean up partial file
+        return false;
+    }
+
+    CACHE_LOGI("File copy completed successfully");
+    return true;
 }
 
 // JNI callback implementations

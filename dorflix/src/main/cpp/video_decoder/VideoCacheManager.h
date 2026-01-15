@@ -60,6 +60,9 @@ private:
     // Check if file exists and is complete
     bool isFileComplete(const std::string& path);
 
+    // Copy downloaded file to cache directory
+    bool copyFileToCache(const std::string& sourcePath, const std::string& destPath);
+
     // JNI bridge functions (called from Java)
     static void onDownloadProgress(JNIEnv* env, jclass clazz, jstring url, jlong downloaded, jlong total);
     static void onDownloadComplete(JNIEnv* env, jclass clazz, jstring url, jstring localPath);
