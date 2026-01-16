@@ -20,6 +20,8 @@ import com.dorflix.app.domain.model.Video
 import com.dorflix.app.presentation.viewmodel.VideoViewModel
 import com.dorflix.app.video.VideoPlayerController
 import com.dorflix.app.video.VideoPlayerListener
+import com.dorflix.app.video.VideoDownloader
+import com.dorflix.app.video.DownloadListener
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
@@ -684,12 +686,98 @@ class VideoAdapter(
                     checkAndStartPlayback(surface)
                 } else {
                     android.util.Log.e("CACHE_DEBUG", "❌ Failed to load video: $videoUrl")
+                    // Show error state for uncached videos
+                    showCacheErrorState()
                     resetPlaybackState()
                 }
             } catch (e: Exception) {
                 android.util.Log.e("CACHE_DEBUG", "❌ Exception loading video: ${e.message}")
+                showCacheErrorState()
                 resetPlaybackState()
             }
+        }
+
+        private fun showCacheErrorState() {
+            // Show play button to indicate video needs to be cached
+            binding.imageViewPlayPause.apply {
+                visibility = View.VISIBLE
+                alpha = 1.0f
+                setImageResource(com.dorflix.app.R.drawable.ic_download) // Use download icon for uncached videos
+            }
+
+            // Add tap handler to start download
+            binding.surfaceViewVideo.setOnClickListener {
+                currentVideo?.let { video ->
+                    android.util.Log.i("CACHE_DEBUG", "Starting download for: ${video.id}")
+                    // Start asynchronous download
+                    com.dorflix.app.video.VideoDownloader.nativePreloadVideo(video.video_url)
+                    // Show loading state
+                    binding.imageViewPlayPause.setImageResource(com.dorflix.app.R.drawable.ic_loading)
+                    showPlayPauseButton(false) // Don't auto-hide loading indicator
+
+                    // Listen for download completion
+                    setupDownloadListener(video.video_url)
+                }
+            }
+
+            // Show snackbar with cache status
+            currentVideo?.let { video ->
+                val snackbar = com.google.android.material.snackbar.Snackbar.make(
+                    binding.root,
+                    "Video not cached. Tap to download.",
+                    com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+                )
+                snackbar.setAction("Download") {
+                    com.dorflix.app.video.VideoDownloader.nativePreloadVideo(video.video_url)
+                    // Listen for download completion
+                    setupDownloadListener(video.video_url)
+                }
+                snackbar.show()
+            }
+        }
+
+        private fun setupDownloadListener(videoUrl: String) {
+            val listener = object : com.dorflix.app.video.DownloadListener {
+                override fun onDownloadProgress(url: String, downloaded: Long, total: Long) {
+                    if (url == videoUrl) {
+                        // Update progress indicator if needed
+                        android.util.Log.d("CACHE_DEBUG", "Download progress: $downloaded/$total")
+                    }
+                }
+
+                override fun onDownloadComplete(url: String, localPath: String) {
+                    if (url == videoUrl) {
+                        android.util.Log.i("CACHE_DEBUG", "Download completed for: $url -> $localPath")
+                        // Remove listener
+                        com.dorflix.app.video.VideoDownloader.removeDownloadListener(this)
+                        // Retry playback with cached video
+                        android.util.Log.i("CACHE_DEBUG", "Retrying playback with cached video")
+                        currentVideo?.let { video ->
+                            startPlayback(video, binding.surfaceViewVideo.holder.surface)
+                        }
+                    }
+                }
+
+                override fun onDownloadError(url: String, error: String) {
+                    if (url == videoUrl) {
+                        android.util.Log.e("CACHE_DEBUG", "Download failed for: $url - $error")
+                        // Remove listener
+                        com.dorflix.app.video.VideoDownloader.removeDownloadListener(this)
+                        // Show error state again
+                        showCacheErrorState()
+                        // Show error snackbar
+                        val snackbar = com.google.android.material.snackbar.Snackbar.make(
+                            binding.root,
+                            "Download failed. Try again.",
+                            com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
+                        )
+                        snackbar.show()
+                    }
+                }
+            }
+
+            // Add listener to receive download events
+            com.dorflix.app.video.VideoDownloader.addDownloadListener(listener)
         }
 
         private fun checkAndStartPlayback(surface: Surface) {

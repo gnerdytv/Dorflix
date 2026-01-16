@@ -1121,84 +1121,85 @@ Java_com_dorflix_app_video_MemoryManager_nativeGetUsedSize(JNIEnv *env, jobject 
 
 static VideoCacheManager* g_cacheManager = nullptr;
 
-JNIEXPORT void JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeInitializeCache(JNIEnv *env, jclass clazz, jstring cache_dir) {
-    if (g_cacheManager) {
-        delete g_cacheManager;
-    }
+// They are being implemented in Kotlin now, so remove C++ implementations
+// JNIEXPORT void JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeInitializeCache(JNIEnv *env, jclass clazz, jstring cache_dir) {
+//     if (g_cacheManager) {
+//         delete g_cacheManager;
+//     }
 
-    std::string cacheDir = jstringToString(env, cache_dir);
-    g_cacheManager = new VideoCacheManager();
+//     std::string cacheDir = jstringToString(env, cache_dir);
+//     g_cacheManager = new VideoCacheManager();
 
-    if (g_cacheManager->initialize(cacheDir)) {
-        LOGI("VideoCacheManager initialized successfully");
-    } else {
-        LOGE("Failed to initialize VideoCacheManager");
-    }
-}
+//     if (g_cacheManager->initialize(cacheDir)) {
+//         LOGI("VideoCacheManager initialized successfully");
+//     } else {
+//         LOGE("Failed to initialize VideoCacheManager");
+//     }
+// }
 
-JNIEXPORT jstring JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeDownloadVideo(JNIEnv *env, jclass clazz, jstring url) {
-    if (!g_cacheManager) {
-        LOGE("VideoCacheManager not initialized");
-        return env->NewStringUTF("");
-    }
+// JNIEXPORT jstring JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeDownloadVideo(JNIEnv *env, jclass clazz, jstring url) {
+//     if (!g_cacheManager) {
+//         LOGE("VideoCacheManager not initialized");
+//         return env->NewStringUTF("");
+//     }
 
-    std::string urlStr = jstringToString(env, url);
-    std::string cachedPath = g_cacheManager->downloadVideo(urlStr);
+//     std::string urlStr = jstringToString(env, url);
+//     std::string cachedPath = g_cacheManager->downloadVideo(urlStr);
 
-    return env->NewStringUTF(cachedPath.c_str());
-}
+//     return env->NewStringUTF(cachedPath.c_str());
+// }
 
-JNIEXPORT jboolean JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeIsVideoCached(JNIEnv *env, jclass clazz, jstring url) {
-    if (!g_cacheManager) {
-        return JNI_FALSE;
-    }
+// JNIEXPORT jboolean JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeIsVideoCached(JNIEnv *env, jclass clazz, jstring url) {
+//     if (!g_cacheManager) {
+//         return JNI_FALSE;
+//     }
 
-    std::string urlStr = jstringToString(env, url);
-    return g_cacheManager->isCached(urlStr) ? JNI_TRUE : JNI_FALSE;
-}
+//     std::string urlStr = jstringToString(env, url);
+//     return g_cacheManager->isCached(urlStr) ? JNI_TRUE : JNI_FALSE;
+// }
 
-JNIEXPORT jstring JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeGetCachedPath(JNIEnv *env, jclass clazz, jstring url) {
-    if (!g_cacheManager) {
-        return env->NewStringUTF("");
-    }
+// JNIEXPORT jstring JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeGetCachedPath(JNIEnv *env, jclass clazz, jstring url) {
+//     if (!g_cacheManager) {
+//         return env->NewStringUTF("");
+//     }
 
-    std::string urlStr = jstringToString(env, url);
-    std::string cachedPath = g_cacheManager->getCachedPath(urlStr);
+//     std::string urlStr = jstringToString(env, url);
+//     std::string cachedPath = g_cacheManager->getCachedPath(urlStr);
 
-    return env->NewStringUTF(cachedPath.c_str());
-}
+//     return env->NewStringUTF(cachedPath.c_str());
+// }
 
-JNIEXPORT void JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativePreloadVideo(JNIEnv *env, jclass clazz, jstring url) {
-    if (!g_cacheManager) {
-        LOGE("VideoCacheManager not initialized for preload");
-        return;
-    }
+// JNIEXPORT void JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativePreloadVideo(JNIEnv *env, jclass clazz, jstring url) {
+//     if (!g_cacheManager) {
+//         LOGE("VideoCacheManager not initialized for preload");
+//         return;
+//     }
 
-    std::string urlStr = jstringToString(env, url);
-    g_cacheManager->preloadVideo(urlStr);
-}
+//     std::string urlStr = jstringToString(env, url);
+//     g_cacheManager->preloadVideo(urlStr);
+// }
 
-JNIEXPORT void JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeCleanupCache(JNIEnv *env, jclass clazz) {
-    if (g_cacheManager) {
-        g_cacheManager->cleanupCache();
-    }
-}
+// JNIEXPORT void JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeCleanupCache(JNIEnv *env, jclass clazz) {
+//     if (g_cacheManager) {
+//         g_cacheManager->cleanupCache();
+//     }
+// }
 
-JNIEXPORT jlong JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeGetCacheSize(JNIEnv *env, jclass clazz) {
-    if (!g_cacheManager) {
-        return 0L;
-    }
+// JNIEXPORT jlong JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeGetCacheSize(JNIEnv *env, jclass clazz) {
+//     if (!g_cacheManager) {
+//         return 0L;
+//     }
 
-    return g_cacheManager->getCacheSize();
-}
-
+//     return g_cacheManager->getCacheSize();
+// }
+// All above must be removed
 
 
 // JNI callback implementations (called from C++)
@@ -1460,26 +1461,29 @@ void resetCodecEnumeration() {
 }
 
 // Forward declarations for VideoDownloader functions
-JNIEXPORT void JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeInitializeCache(JNIEnv *env, jclass clazz, jstring cache_dir);
+// These are now implemented in Kotlin, so we just declare them here
+// JNIEXPORT void JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeInitializeCache(JNIEnv *env, jclass clazz, jstring cache_dir);
 
-JNIEXPORT jstring JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeDownloadVideo(JNIEnv *env, jclass clazz, jstring url);
+// JNIEXPORT jstring JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeDownloadVideo(JNIEnv *env, jclass clazz, jstring url);
 
-JNIEXPORT jboolean JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeIsVideoCached(JNIEnv *env, jclass clazz, jstring url);
+// JNIEXPORT jboolean JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeIsVideoCached(JNIEnv *env, jclass clazz, jstring url);
 
-JNIEXPORT jstring JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeGetCachedPath(JNIEnv *env, jclass clazz, jstring url);
+// JNIEXPORT jstring JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeGetCachedPath(JNIEnv *env, jclass clazz, jstring url);
 
-JNIEXPORT void JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativePreloadVideo(JNIEnv *env, jclass clazz, jstring url);
+// JNIEXPORT void JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativePreloadVideo(JNIEnv *env, jclass clazz, jstring url);
 
-JNIEXPORT void JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeCleanupCache(JNIEnv *env, jclass clazz);
+// JNIEXPORT void JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeCleanupCache(JNIEnv *env, jclass clazz);
 
-JNIEXPORT jlong JNICALL
-Java_com_dorflix_app_video_VideoDownloader_nativeGetCacheSize(JNIEnv *env, jclass clazz);
+// JNIEXPORT jlong JNICALL
+// Java_com_dorflix_app_video_VideoDownloader_nativeGetCacheSize(JNIEnv *env, jclass clazz);
+
+// above are supposed to be removed since they are implemented in Kotlin now
 
 JNIEXPORT void JNICALL
 Java_com_dorflix_app_video_VideoDownloader_onDownloadProgress(JNIEnv *env, jclass clazz, jstring url, jlong downloaded, jlong total);
@@ -1528,17 +1532,20 @@ static const JNINativeMethod codecEnumeratorMethods[] = {
     {"signalEnumerationComplete", "(I)V", (void*)Java_com_dorflix_app_CodecEnumerator_signalEnumerationComplete},
 };
 
+// They should not be declared as NativeMethods since they are implemented in Kotlin
 static const JNINativeMethod videoDownloaderMethods[] = {
-    {"nativeInitializeCache", "(Ljava/lang/String;)V", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeInitializeCache},
-    {"nativeDownloadVideo", "(Ljava/lang/String;)Ljava/lang/String;", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeDownloadVideo},
-    {"nativeIsVideoCached", "(Ljava/lang/String;)Z", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeIsVideoCached},
-    {"nativeGetCachedPath", "(Ljava/lang/String;)Ljava/lang/String;", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeGetCachedPath},
-    {"nativePreloadVideo", "(Ljava/lang/String;)V", (void*)Java_com_dorflix_app_video_VideoDownloader_nativePreloadVideo},
-    {"nativeCleanupCache", "()V", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeCleanupCache},
-    {"nativeGetCacheSize", "()J", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeGetCacheSize},
-    {"onDownloadProgress", "(Ljava/lang/String;JJ)V", (void*)Java_com_dorflix_app_video_VideoDownloader_onDownloadProgress},
-    {"onDownloadComplete", "(Ljava/lang/String;Ljava/lang/String;)V", (void*)Java_com_dorflix_app_video_VideoDownloader_onDownloadComplete},
-    {"onDownloadError", "(Ljava/lang/String;Ljava/lang/String;)V", (void*)Java_com_dorflix_app_video_VideoDownloader_onDownloadError},
+    // {"nativeInitializeCache", "(Ljava/lang/String;)V", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeInitializeCache},
+    // {"nativeDownloadVideo", "(Ljava/lang/String;)Ljava/lang/String;", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeDownloadVideo},
+    // {"nativeIsVideoCached", "(Ljava/lang/String;)Z", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeIsVideoCached},
+    // {"nativeGetCachedPath", "(Ljava/lang/String;)Ljava/lang/String;", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeGetCachedPath},
+    // {"nativePreloadVideo", "(Ljava/lang/String;)V", (void*)Java_com_dorflix_app_video_VideoDownloader_nativePreloadVideo},
+    // {"nativeCleanupCache", "()V", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeCleanupCache},
+    // {"nativeGetCacheSize", "()J", (void*)Java_com_dorflix_app_video_VideoDownloader_nativeGetCacheSize},
+    // {"onDownloadProgress", "(Ljava/lang/String;JJ)V", (void*)Java_com_dorflix_app_video_VideoDownloader_onDownloadProgress},
+    // {"onDownloadComplete", "(Ljava/lang/String;Ljava/lang/String;)V", (void*)Java_com_dorflix_app_video_VideoDownloader_onDownloadComplete},
+    // {"onDownloadError", "(Ljava/lang/String;Ljava/lang/String;)V", (void*)Java_com_dorflix_app_video_VideoDownloader_onDownloadError},
+    // VideoDownloader methods are implemented in Kotlin, not C++
+    // Removed all JNI registrations to prevent "no native method" errors
 };
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {

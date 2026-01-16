@@ -558,33 +558,20 @@ bool VideoDecoder::openVideoFile(const std::string& videoPath) {
                         videoPath.find("https://") == 0 ||
                         videoPath.find("file://") == 0);
 
-    // For HTTPS URLs, check preloader cache first, then download
+    // For HTTPS URLs, check cache first, then download if needed
     std::string finalPath = videoPath;
     if (isHttpsUrl) {
-        LOGI("HTTPS URL detected - checking preloader cache first");
+        LOGI("HTTPS URL detected - checking cache first");
 
-    // 🎯 CHECK PRELOADER CACHE FIRST - this makes preloading actually useful!
-    // TODO: Full preloader integration - currently just logs the check
-    bool videoFromPreloader = false;
-    if (m_preloader) {
-        LOGI("Preloader available - checking cache for: %s", videoPath.c_str());
-        // TODO: Implement full preloader cache check when Preloader API is finalized
-        // For now, preloader runs but cache isn't used for playback
-        LOGI("Preloader cache check: NOT YET IMPLEMENTED (placeholder)");
-    }
-
-        if (!videoFromPreloader) {
-            LOGI("Video not in preloader cache, falling back to VideoCacheManager download");
-
-            // Call JNI to download video (this will block until download completes)
-            JNIEnv* env = nullptr;
-            JavaVM* jvm = nullptr;
+        // Check if video is cached using JNI call
+        JNIEnv* env = nullptr;
+        JavaVM* jvm = nullptr;
 
         // Get JVM from exported function
         jvm = getGlobalJVM();
 
         if (!jvm) {
-            LOGE("JVM not available for video download");
+            LOGE("JVM not available for cache check");
             return false;
         }
 
@@ -595,27 +582,36 @@ bool VideoDecoder::openVideoFile(const std::string& videoPath) {
             if (jvm->AttachCurrentThread(&env, nullptr) == JNI_OK) {
                 attached = true;
             } else {
-                LOGE("Failed to attach thread for video download");
+                LOGE("Failed to attach thread for cache check");
                 return false;
             }
         } else if (attachResult != JNI_OK) {
-            LOGE("Failed to get JNI environment for video download");
+            LOGE("Failed to get JNI environment for cache check");
             return false;
         }
 
         // Find VideoDownloader class
         jclass downloaderClass = env->FindClass("com/dorflix/app/video/VideoDownloader");
         if (!downloaderClass) {
-            LOGE("Could not find VideoDownloader class");
+            LOGE("Could not find VideoDownloader class for cache check");
             if (attached) jvm->DetachCurrentThread();
             return false;
         }
 
-        // Get download method
-        jmethodID downloadMethod = env->GetStaticMethodID(downloaderClass, "nativeDownloadVideo",
-                                                         "(Ljava/lang/String;)Ljava/lang/String;");
-        if (!downloadMethod) {
-            LOGE("Could not find nativeDownloadVideo method");
+        // Check if video is cached first
+        jmethodID isCachedMethod = env->GetStaticMethodID(downloaderClass, "nativeIsVideoCached",
+                                                         "(Ljava/lang/String;)Z");
+        if (!isCachedMethod) {
+            LOGE("Could not find nativeIsVideoCached method");
+            if (attached) jvm->DetachCurrentThread();
+            return false;
+        }
+
+        // Get cached path
+        jmethodID getCachedPathMethod = env->GetStaticMethodID(downloaderClass, "nativeGetCachedPath",
+                                                              "(Ljava/lang/String;)Ljava/lang/String;");
+        if (!getCachedPathMethod) {
+            LOGE("Could not find nativeGetCachedPath method");
             if (attached) jvm->DetachCurrentThread();
             return false;
         }
@@ -628,56 +624,60 @@ bool VideoDecoder::openVideoFile(const std::string& videoPath) {
             return false;
         }
 
-        LOGI("Calling VideoDownloader.nativeDownloadVideo()...");
-
-        // Call the download method
-        jstring jResult = static_cast<jstring>(env->CallStaticObjectMethod(downloaderClass, downloadMethod, jUrl));
-
-        // Clean up
-        env->DeleteLocalRef(jUrl);
-
+        // Check if cached
+        jboolean isCached = env->CallStaticBooleanMethod(downloaderClass, isCachedMethod, jUrl);
         if (env->ExceptionCheck()) {
-            LOGE("Exception occurred during video download");
+            LOGE("Exception occurred during cache check");
             env->ExceptionDescribe();
             env->ExceptionClear();
+            env->DeleteLocalRef(jUrl);
             if (attached) jvm->DetachCurrentThread();
             return false;
         }
 
-        if (!jResult) {
-            LOGE("Download method returned null");
+        if (isCached == JNI_TRUE) {
+            LOGI("✅ Video found in cache - using cached version");
+
+            // Get cached path
+            jstring jCachedPath = static_cast<jstring>(env->CallStaticObjectMethod(downloaderClass, getCachedPathMethod, jUrl));
+            if (env->ExceptionCheck()) {
+                LOGE("Exception occurred getting cached path");
+                env->ExceptionDescribe();
+                env->ExceptionClear();
+                env->DeleteLocalRef(jUrl);
+                if (attached) jvm->DetachCurrentThread();
+                return false;
+            }
+
+            if (jCachedPath) {
+                const char* cachedPathChars = env->GetStringUTFChars(jCachedPath, nullptr);
+                if (cachedPathChars) {
+                    finalPath = cachedPathChars;
+                    env->ReleaseStringUTFChars(jCachedPath, cachedPathChars);
+                    LOGI("Using cached video path: %s", finalPath.c_str());
+                }
+                env->DeleteLocalRef(jCachedPath);
+            }
+
+            env->DeleteLocalRef(jUrl);
             if (attached) jvm->DetachCurrentThread();
+        } else {
+            LOGI("❌ Video not in cache - cannot play without download");
+
+            // Clean up and return error - don't attempt synchronous download
+            env->DeleteLocalRef(jUrl);
+            if (attached) jvm->DetachCurrentThread();
+
+            LOGE("Video not cached: %s - refusing to block main thread with download", videoPath.c_str());
             return false;
         }
-
-        // Get the result string
-        const char* resultChars = env->GetStringUTFChars(jResult, nullptr);
-        if (!resultChars) {
-            LOGE("Failed to get string from download result");
-            env->DeleteLocalRef(jResult);
-            if (attached) jvm->DetachCurrentThread();
-            return false;
-        }
-
-        finalPath = resultChars;
-        env->ReleaseStringUTFChars(jResult, resultChars);
-        env->DeleteLocalRef(jResult);
-
-        if (finalPath.empty()) {
-            LOGE("VideoDownloader returned empty path");
-            if (attached) jvm->DetachCurrentThread();
-            return false;
-        }
-
-        LOGI("Downloaded video to: %s", finalPath.c_str());
 
         // Detach thread if we attached it
         if (attached) {
             if (jvm->DetachCurrentThread() != JNI_OK) {
-                LOGW("Failed to detach thread after video download");
+                LOGW("Failed to detach thread after cache check");
             }
         }
-    }
     }
 
     // For network URLs, skip local file existence check

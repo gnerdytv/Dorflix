@@ -29,6 +29,7 @@ drawable ic_add_circle
 drawable ic_arrow_back
 drawable ic_close
 drawable ic_comment
+drawable ic_download
 drawable ic_error
 drawable ic_eye
 drawable ic_fullscreen
@@ -36,6 +37,7 @@ drawable ic_fullscreen_exit
 drawable ic_home
 drawable ic_library
 drawable ic_like
+drawable ic_loading
 drawable ic_music
 drawable ic_pause
 drawable ic_placeholder
