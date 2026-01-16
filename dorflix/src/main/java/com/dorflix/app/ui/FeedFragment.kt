@@ -260,7 +260,7 @@ class FeedFragment : Fragment() {
      * @return true if JNI_OnLoad has completed successfully
      */
     private fun isJNILibraryReady(): Boolean {
-        return (requireActivity().application as DorflixApplication).isJNILibraryReady()
+        return (requireActivity().application as DorflixApplication).isJNILibraryReadySafe()
     }
 
     override fun onDestroyView() {

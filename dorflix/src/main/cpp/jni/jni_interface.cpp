@@ -1576,6 +1576,9 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
         return -1;
     }
 
+    
+
+
     LOGI("=== STARTING JNI METHOD REGISTRATION ===");
     int totalClassesAttempted = 0;
     int totalClassesSuccessful = 0;
@@ -1826,6 +1829,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
     // Set JNI readiness flag
     g_jniReady = true;
     LOGI(" JNI library ready for use");
+
 
     JNI_LOG_PERF("JNI_OnLoad", startTime);
     JNI_LOG_EXIT("JNI_OnLoad", true);

@@ -62,12 +62,15 @@ adb logcat -c; adb logcat -c; adb logcat -v time | Select-String -Pattern "(CRAS
 
 # Clean all Gradle build artifacts and native builds
 ./gradlew clean
+./gradlew clean assembleDebug
 
 # Also clean CMake artifacts if needed
 ./gradlew cleanBuildCache
 
 # Remove CMake cache and build directories
 Remove-Item -Recurse -Force .cxx
+rm -rf .gradle build app/build
+
 Remove-Item -Recurse -Force build\intermediates\cxx
 
 # Rebuild everything including native libraries
@@ -75,3 +78,12 @@ Remove-Item -Recurse -Force build\intermediates\cxx
 
 # Install the rebuilt APK on device
 ./gradlew uninstallDebug installDebug
+
+# Clean any previous builds
+./gradlew clean
+
+# Build the native library (this will run CMake)
+./gradlew build
+
+# Check if native libraries were built
+dir build/intermediates/cxx/Debug/*/obj/

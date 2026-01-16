@@ -1,0 +1,11 @@
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\av_sync\ExceptionSafety.h
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\video_decoder\VideoPlayer.h
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\video_decoder\AudioPlayer.h
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\video_decoder\OpenGLVideoRenderer.h
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\video_decoder\GPUCapabilitiesDetector.h
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\video_decoder\VideoDecoderFactory.h
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\video_decoder\VideoDecoderBase.h
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\video_decoder\MediaCodecHardwareDecoder.h
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\video_decoder\VideoRenderer.h
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\video_decoder\ANativeWindowRenderer.h
+C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\cpp\video_decoder\VideoRendererFactory.h

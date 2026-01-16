@@ -131,7 +131,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\ar
 	tools:targetApi
 		ADDED from C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\AndroidManifest.xml:26:9-29
 	android:icon
-		ADDED from C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\AndroidManifest.xml:20:9-42
+		ADDED from C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\AndroidManifest.xml:20:9-43
 	android:allowBackup
 		ADDED from C:\Users\arthu\Documents\DorflixApp\dorflix\src\main\AndroidManifest.xml:19:9-35
 	android:theme

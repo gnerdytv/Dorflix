@@ -1,0 +1,96 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-RelWithDebInfo-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.6.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "dorflix_video",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "av_sync::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-av_sync-RelWithDebInfo-3ca4af6dc50b98fcd5b7.json",
+					"name" : "av_sync",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dorflix-native::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dorflix-native-RelWithDebInfo-16196af9a81a99236fd0.json",
+					"name" : "dorflix-native",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "memory_manager::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-memory_manager-RelWithDebInfo-e07679078885f1ee7c00.json",
+					"name" : "memory_manager",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "video_decoder::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-video_decoder-RelWithDebInfo-996adce31ab4efba89a7.json",
+					"name" : "video_decoder",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "video_preloader::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-video_preloader-RelWithDebInfo-77b4ca82ac65c6010e91.json",
+					"name" : "video_preloader",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/arthu/Documents/DorflixApp/dorflix/.cxx/RelWithDebInfo/1h1z126p/arm64-v8a",
+		"source" : "C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/cpp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

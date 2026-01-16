@@ -41,6 +41,15 @@ class DorflixApplication : Application() {
         INSTANCE = this
         Log.d(TAG, "DorflixApplication created")
 
+        // Explicitly load the native library as backup to manifest auto-loading
+        try {
+            System.loadLibrary("dorflix-native")
+            Log.d(TAG, "Native library loaded successfully")
+        } catch (e: UnsatisfiedLinkError) {
+            Log.e(TAG, "Failed to load native library: ${e.message}")
+            // Continue without native functionality
+        }
+
         // Set up global exception handler for crash monitoring
         setupCrashHandler()
 
@@ -213,4 +222,17 @@ class DorflixApplication : Application() {
      * @return true if JNI_OnLoad completed successfully
      */
     external fun isJNILibraryReady(): Boolean
+
+    /**
+     * Safe version that handles UnsatisfiedLinkError
+     * @return true if JNI library is ready, false if not loaded
+     */
+    fun isJNILibraryReadySafe(): Boolean {
+        return try {
+            isJNILibraryReady()
+        } catch (e: UnsatisfiedLinkError) {
+            Log.w(TAG, "JNI library not loaded: ${e.message}")
+            false
+        }
+    }
 }

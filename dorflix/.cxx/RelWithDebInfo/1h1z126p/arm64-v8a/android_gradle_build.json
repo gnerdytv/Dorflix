@@ -1,0 +1,72 @@
+{
+  "buildFiles": [
+    "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\src\\main\\cpp\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\arthu\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\.cxx\\RelWithDebInfo\\1h1z126p\\arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\arthu\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\.cxx\\RelWithDebInfo\\1h1z126p\\arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "av_sync::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "av_sync",
+      "output": "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\.cxx\\RelWithDebInfo\\1h1z126p\\arm64-v8a\\libav_sync.a"
+    },
+    "dorflix-native::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "dorflix-native",
+      "output": "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\build\\intermediates\\cxx\\RelWithDebInfo\\1h1z126p\\obj\\arm64-v8a\\libdorflix-native.so",
+      "runtimeFiles": [
+        "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\build\\intermediates\\cxx\\RelWithDebInfo\\1h1z126p\\obj\\arm64-v8a\\libvideo_preloader.so",
+        "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\build\\intermediates\\cxx\\RelWithDebInfo\\1h1z126p\\obj\\arm64-v8a\\libmemory_manager.so",
+        "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\src\\main\\jniLibs\\arm64-v8a\\libavformat.so",
+        "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\src\\main\\jniLibs\\arm64-v8a\\libavcodec.so",
+        "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\src\\main\\jniLibs\\arm64-v8a\\libavutil.so",
+        "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\src\\main\\jniLibs\\arm64-v8a\\libswscale.so",
+        "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\src\\main\\jniLibs\\arm64-v8a\\libswresample.so"
+      ]
+    },
+    "memory_manager::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "memory_manager",
+      "output": "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\build\\intermediates\\cxx\\RelWithDebInfo\\1h1z126p\\obj\\arm64-v8a\\libmemory_manager.so",
+      "runtimeFiles": []
+    },
+    "video_decoder::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "video_decoder",
+      "output": "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\.cxx\\RelWithDebInfo\\1h1z126p\\arm64-v8a\\libvideo_decoder.a"
+    },
+    "video_preloader::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "video_preloader",
+      "output": "C:\\Users\\arthu\\Documents\\DorflixApp\\dorflix\\build\\intermediates\\cxx\\RelWithDebInfo\\1h1z126p\\obj\\arm64-v8a\\libvideo_preloader.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "C:\\Users\\arthu\\AppData\\Local\\Android\\Sdk\\ndk\\25.2.9519653\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "C:\\Users\\arthu\\AppData\\Local\\Android\\Sdk\\ndk\\25.2.9519653\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

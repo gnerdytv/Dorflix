@@ -4,7 +4,7 @@ package com.dorflix.app;
  * Application class for Dorflix app
  * Provides global application context, singleton instance access, and crash monitoring
  */
-@kotlin.Metadata(mv = {2, 3, 0}, k = 1, xi = 48, d1 = {"\u00008\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0003\n\u0000\n\u0002\u0010\u000e\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0002\u0018\u0000 \u001a2\u00020\u0001:\u0001\u001aB\u0007\u00a2\u0006\u0004\b\u0002\u0010\u0003J\b\u0010\u0004\u001a\u00020\u0005H\u0016J\b\u0010\u0006\u001a\u00020\u0005H\u0016J\b\u0010\u0007\u001a\u00020\u0005H\u0002J\u0018\u0010\b\u001a\u00020\u00052\u0006\u0010\t\u001a\u00020\n2\u0006\u0010\u000b\u001a\u00020\fH\u0002J\u0018\u0010\r\u001a\u00020\u000e2\u0006\u0010\t\u001a\u00020\n2\u0006\u0010\u000b\u001a\u00020\fH\u0002J\u0016\u0010\u000f\u001a\u00020\u00052\u0006\u0010\u0010\u001a\u00020\u000e2\u0006\u0010\u0011\u001a\u00020\u000eJ\u0010\u0010\u0012\u001a\u00020\u00052\u0006\u0010\u0013\u001a\u00020\u000eH\u0002J\b\u0010\u0014\u001a\u00020\u000eH\u0002J\b\u0010\u0015\u001a\u0004\u0018\u00010\u0016J\b\u0010\u0017\u001a\u0004\u0018\u00010\u0016J\t\u0010\u0018\u001a\u00020\u0019H\u0086 \u00a8\u0006\u001b"}, d2 = {"Lcom/dorflix/app/DorflixApplication;", "Landroid/app/Application;", "<init>", "()V", "onCreate", "", "onTerminate", "setupCrashHandler", "handleCrash", "thread", "Ljava/lang/Thread;", "exception", "", "buildCrashDetails", "", "logCrashEvent", "eventType", "details", "writeCrashToFile", "crashDetails", "getAppVersion", "getCrashLogFile", "Ljava/io/File;", "getLastCrashFile", "isJNILibraryReady", "", "Companion", "DorflixNative_debug"})
+@kotlin.Metadata(mv = {2, 3, 0}, k = 1, xi = 48, d1 = {"\u00008\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0002\n\u0002\b\u0004\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0003\n\u0000\n\u0002\u0010\u000e\n\u0002\b\u0007\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0010\u000b\n\u0002\b\u0003\u0018\u0000 \u001b2\u00020\u0001:\u0001\u001bB\u0007\u00a2\u0006\u0004\b\u0002\u0010\u0003J\b\u0010\u0004\u001a\u00020\u0005H\u0016J\b\u0010\u0006\u001a\u00020\u0005H\u0016J\b\u0010\u0007\u001a\u00020\u0005H\u0002J\u0018\u0010\b\u001a\u00020\u00052\u0006\u0010\t\u001a\u00020\n2\u0006\u0010\u000b\u001a\u00020\fH\u0002J\u0018\u0010\r\u001a\u00020\u000e2\u0006\u0010\t\u001a\u00020\n2\u0006\u0010\u000b\u001a\u00020\fH\u0002J\u0016\u0010\u000f\u001a\u00020\u00052\u0006\u0010\u0010\u001a\u00020\u000e2\u0006\u0010\u0011\u001a\u00020\u000eJ\u0010\u0010\u0012\u001a\u00020\u00052\u0006\u0010\u0013\u001a\u00020\u000eH\u0002J\b\u0010\u0014\u001a\u00020\u000eH\u0002J\b\u0010\u0015\u001a\u0004\u0018\u00010\u0016J\b\u0010\u0017\u001a\u0004\u0018\u00010\u0016J\t\u0010\u0018\u001a\u00020\u0019H\u0086 J\u0006\u0010\u001a\u001a\u00020\u0019\u00a8\u0006\u001c"}, d2 = {"Lcom/dorflix/app/DorflixApplication;", "Landroid/app/Application;", "<init>", "()V", "onCreate", "", "onTerminate", "setupCrashHandler", "handleCrash", "thread", "Ljava/lang/Thread;", "exception", "", "buildCrashDetails", "", "logCrashEvent", "eventType", "details", "writeCrashToFile", "crashDetails", "getAppVersion", "getCrashLogFile", "Ljava/io/File;", "getLastCrashFile", "isJNILibraryReady", "", "isJNILibraryReadySafe", "Companion", "DorflixNative_debug"})
 public final class DorflixApplication extends android.app.Application {
     @org.jetbrains.annotations.NotNull()
     private static final java.lang.String TAG = "DorflixApplication";
@@ -89,6 +89,14 @@ public final class DorflixApplication extends android.app.Application {
      * @return true if JNI_OnLoad completed successfully
      */
     public final native boolean isJNILibraryReady() {
+        return false;
+    }
+    
+    /**
+     * Safe version that handles UnsatisfiedLinkError
+     * @return true if JNI library is ready, false if not loaded
+     */
+    public final boolean isJNILibraryReadySafe() {
         return false;
     }
     

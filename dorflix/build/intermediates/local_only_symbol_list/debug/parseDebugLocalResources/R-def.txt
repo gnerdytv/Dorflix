@@ -22,7 +22,6 @@ color teal_700
 color text_primary
 color text_secondary
 color white
-drawable app_icon
 drawable bottom_gradient
 drawable button_background
 drawable button_round
@@ -90,6 +89,7 @@ layout fragment_search
 layout fragment_video_player
 layout item_video
 menu bottom_nav_menu
+mipmap ic_launcher
 string action_completed
 string add_comment
 string app_name
