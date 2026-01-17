@@ -1,0 +1,345 @@
+kotlin version: 2.3.0
+error message: org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error: Exception during IR lowering
+File being compiled: C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/java/com/dorflix/app/ui/FeedFragment.kt
+The root cause org.jetbrains.kotlin.backend.common.CompilationException was thrown at: org.jetbrains.kotlin.ir.util.IrUtilsKt.getParentAsClass(IrUtils.kt:317)
+	at org.jetbrains.kotlin.backend.common.BackendException$Companion.report(BackendException.kt:31)
+	at org.jetbrains.kotlin.backend.common.BackendException$Companion.report$default(BackendException.kt:15)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(PerformByIrFilePhase.kt:39)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(PerformByIrFilePhase.kt:16)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseEngine.runPhase(PhaseEngine.kt:64)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseEngine.runPhase$default(PhaseEngine.kt:56)
+	at org.jetbrains.kotlin.backend.jvm.JvmIrCodegenFactory.invokeLowerings(JvmIrCodegenFactory.kt:367)
+	at org.jetbrains.kotlin.cli.jvm.compiler.KotlinToJVMBytecodeCompiler.runLowerings$cli(KotlinToJVMBytecodeCompiler.kt:395)
+	at org.jetbrains.kotlin.cli.pipeline.jvm.JvmBackendPipelinePhase.executePhase(JvmBackendPipelinePhase.kt:79)
+	at org.jetbrains.kotlin.kapt.FirKaptAnalysisHandlerExtension.contextForStubGeneration(FirKaptAnalysisHandlerExtension.kt:202)
+	at org.jetbrains.kotlin.kapt.FirKaptAnalysisHandlerExtension.doAnalysis(FirKaptAnalysisHandlerExtension.kt:102)
+	at org.jetbrains.kotlin.fir.extensions.FirAnalysisHandlerExtension$Companion.analyze(FirAnalysisHandlerExtension.kt:29)
+	at org.jetbrains.kotlin.cli.pipeline.jvm.JvmFrontendPipelinePhase.executePhase(JvmFrontendPipelinePhase.kt:179)
+	at org.jetbrains.kotlin.cli.pipeline.jvm.JvmFrontendPipelinePhase.executePhase(JvmFrontendPipelinePhase.kt:55)
+	at org.jetbrains.kotlin.cli.pipeline.PipelinePhase.phaseBody(PipelinePhase.kt:68)
+	at org.jetbrains.kotlin.cli.pipeline.PipelinePhase.phaseBody(PipelinePhase.kt:58)
+	at org.jetbrains.kotlin.config.phaser.NamedCompilerPhase.invoke(CompilerPhase.kt:102)
+	at org.jetbrains.kotlin.backend.common.phaser.CompositePhase.invoke(PhaseBuilders.kt:22)
+	at org.jetbrains.kotlin.config.phaser.CompilerPhaseKt.invokeToplevel(CompilerPhase.kt:53)
+	at org.jetbrains.kotlin.cli.pipeline.AbstractCliPipeline.runPhasedPipeline(AbstractCliPipeline.kt:109)
+	at org.jetbrains.kotlin.cli.pipeline.AbstractCliPipeline.execute(AbstractCliPipeline.kt:68)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecutePhased(K2JVMCompiler.kt:51)
+	at org.jetbrains.kotlin.cli.jvm.K2JVMCompiler.doExecutePhased(K2JVMCompiler.kt:42)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.execImpl(CLICompiler.kt:89)
+	at org.jetbrains.kotlin.cli.common.CLICompiler.exec(CLICompiler.kt:359)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunnerBase.runCompiler(IncrementalJvmCompilerRunnerBase.kt:178)
+	at org.jetbrains.kotlin.incremental.IncrementalJvmCompilerRunnerBase.runCompiler(IncrementalJvmCompilerRunnerBase.kt:40)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.doCompile(IncrementalCompilerRunner.kt:504)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compileImpl(IncrementalCompilerRunner.kt:418)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compileNonIncrementally(IncrementalCompilerRunner.kt:301)
+	at org.jetbrains.kotlin.incremental.IncrementalCompilerRunner.compile(IncrementalCompilerRunner.kt:128)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.execIncrementalCompiler(CompileServiceImpl.kt:684)
+	at org.jetbrains.kotlin.daemon.CompileServiceImplBase.access$execIncrementalCompiler(CompileServiceImpl.kt:94)
+	at org.jetbrains.kotlin.daemon.CompileServiceImpl.compile(CompileServiceImpl.kt:1810)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: org.jetbrains.kotlin.backend.common.CompilationException: Back-end: Please report this problem https://kotl.in/issue
+C:/Users/arthu/Documents/DorflixApp/dorflix/src/main/java/com/dorflix/app/ui/FeedFragment.kt:277:5
+Problem with `inner class VideoAdapter : ListAdapter<Video, VideoViewHolder> {
+  constructor(viewPager: ViewPager2, onVideoClick: Function1<Video, Unit>) /* primary */
+
+  private /* final field */ field viewPager: ViewPager2
+  private /* final field */ field onVideoClick: Function1<Video, Unit>
+  private field currentPlayingPosition: Int = -1
+  internal fun <get-currentPlayingPosition>(): Int
+
+  internal fun <set-currentPlayingPosition>(<set-?>: Int)
+
+  private /* final field */ field SCROLL_BUFFER: Int = 2
+  private /* final field */ field playbackState: MutableMap<String, Int>
+  private field pendingPlaybackPosition: Int = -1
+  internal fun <get-pendingPlaybackPosition>(): Int
+
+  internal fun <set-pendingPlaybackPosition>(<set-?>: Int)
+
+  private field pendingPlaybackSeekPosition: Int = 0
+  internal fun <get-pendingPlaybackSeekPosition>(): Int
+
+  internal fun <set-pendingPlaybackSeekPosition>(<set-?>: Int)
+
+  private field playbackStartedForPosition: Int = -1
+  internal fun <get-playbackStartedForPosition>(): Int
+
+  internal fun <set-playbackStartedForPosition>(<set-?>: Int)
+
+  fun startPlaybackAtPosition(position: Int) {
+    return error("") /* ErrorExpression */
+  }
+
+  private fun tryStartPlaybackForPosition(position: Int) {
+    return error("") /* ErrorExpression */
+  }
+
+  private fun preloadVideosInBuffer(currentPosition: Int) {
+    return error("") /* ErrorExpression */
+  }
+
+  fun stopPlaybackAtPosition(position: Int) {
+    return error("") /* ErrorExpression */
+  }
+
+  fun pausePlaybackAtPosition(position: Int) {
+    return error("") /* ErrorExpression */
+  }
+
+  fun getSavedPosition(videoId: String): Int {
+    return error("") /* ErrorExpression */
+  }
+
+  private fun savePosition(videoId: String, position: Int) {
+    return error("") /* ErrorExpression */
+  }
+
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
+    return error("") /* ErrorExpression */
+  }
+
+  override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
+    return error("") /* ErrorExpression */
+  }
+
+  override fun onViewAttachedToWindow(holder: VideoViewHolder) {
+    return error("") /* ErrorExpression */
+  }
+
+  override fun onViewDetachedFromWindow(holder: VideoViewHolder) {
+    return error("") /* ErrorExpression */
+  }
+
+  inner class VideoViewHolder : ViewHolder {
+    constructor(this$0: VideoAdapter, binding: ItemVideoBinding) /* primary */
+
+    private /* final field */ field binding: ItemVideoBinding
+    fun <get-binding>(): ItemVideoBinding
+
+    private field videoPlayerController: VideoPlayerController? = null
+    private field currentVideo: Video? = null
+    private field isPlaying: Boolean = false
+    private field isViewAttached: Boolean = false
+    private field pendingPlaybackResume: Boolean = false
+    private field isVideoLoaded: Boolean = false
+    private field isSurfaceReady: Boolean = false
+    private field pendingSeekPosition: Int = 0
+    private /* final field */ field playerListener: VideoPlayerListener
+    init {
+    }
+
+    private fun togglePlayPause() {
+      return error("") /* ErrorExpression */
+    }
+
+    private fun showPlayPauseButton(shouldFadeOut: Boolean = error("") /* ErrorExpression */) {
+      return error("") /* ErrorExpression */
+    }
+
+    package fun showPlayPauseButton$default(/* var */ shouldFadeOut: Boolean = error("") /* ErrorExpression */, $mask0: Int, $handler: Any?) {
+      when {
+        EQEQ(arg0 = $mask0.and(other = 1), arg1 = 0).not() -> shouldFadeOut = error("") /* ErrorExpression */
+      }
+      return <this>.showPlayPauseButton(shouldFadeOut = shouldFadeOut)
+    }
+
+    private fun fadeOutPlayPauseButton() {
+      return error("") /* ErrorExpression */
+    }
+
+    fun bind(video: Video, currentPlayingPosition: Int) {
+      return error("") /* ErrorExpression */
+    }
+
+    fun startPlayback(video: Video, surface: Surface, seekToPosition: Int = error("") /* ErrorExpression */) {
+      return error("") /* ErrorExpression */
+    }
+
+    fun startPlayback$default(video: Video, surface: Surface, /* var */ seekToPosition: Int = error("") /* ErrorExpression */, $mask0: Int, $handler: Any?) {
+      when {
+        EQEQ(arg0 = $mask0.and(other = 4), arg1 = 0).not() -> seekToPosition = error("") /* ErrorExpression */
+      }
+      return <this>.startPlayback(video = video, surface = surface, seekToPosition = seekToPosition)
+    }
+
+    private fun createAndStartPlayback(videoUrl: String, surface: Surface) {
+      return error("") /* ErrorExpression */
+    }
+
+    private fun showCacheErrorState() {
+      return error("") /* ErrorExpression */
+    }
+
+    private fun setupDownloadListener(videoUrl: String) {
+      return error("") /* ErrorExpression */
+    }
+
+    private fun checkAndStartPlayback(surface: Surface) {
+      return error("") /* ErrorExpression */
+    }
+
+    private fun resetPlaybackState() {
+      return error("") /* ErrorExpression */
+    }
+
+    fun stopPlayback() {
+      return error("") /* ErrorExpression */
+    }
+
+    fun pausePlayback() {
+      return error("") /* ErrorExpression */
+    }
+
+    fun resumePlayback() {
+      return error("") /* ErrorExpression */
+    }
+
+    fun getCurrentPosition(): Int {
+      return error("") /* ErrorExpression */
+    }
+
+    fun onViewAttachedToWindow() {
+      return error("") /* ErrorExpression */
+    }
+
+    fun onViewDetachedFromWindow() {
+      return error("") /* ErrorExpression */
+    }
+
+    @Deprecated(message = "Deprecated in Java")
+    /* fake */ override fun getPosition(): Int
+
+    /* fake */ override fun getLayoutPosition(): Int
+
+    /* fake */ override fun getAdapterPosition(): Int
+
+    /* fake */ override fun getOldPosition(): Int
+
+    /* fake */ override fun getItemId(): Long
+
+    /* fake */ override fun getItemViewType(): Int
+
+    /* fake */ override fun toString(): @EnhancedNullability String
+
+    /* fake */ override fun setIsRecyclable(p0: Boolean)
+
+    /* fake */ override fun isRecyclable(): Boolean
+
+    /* fake */ override operator fun equals(other: Any?): Boolean
+
+    /* fake */ override fun hashCode(): Int
+
+  }
+
+  /* fake */ override fun submitList(@Nullable p0: @FlexibleMutability MutableList<@FlexibleNullability Video?>?)
+
+  /* fake */ override fun submitList(@Nullable p0: @FlexibleMutability MutableList<@FlexibleNullability Video?>?, @Nullable p1: @EnhancedNullability Runnable?)
+
+  protected_and_package /* fake */ override fun getItem(p0: Int): @FlexibleNullability Video?
+
+  /* fake */ override fun getItemCount(): Int
+
+  @NonNull
+  /* fake */ override fun getCurrentList(): @EnhancedNullability @FlexibleMutability MutableList<@FlexibleNullability Video?>
+
+  /* fake */ override fun onCurrentListChanged(@NonNull p0: @EnhancedNullability @FlexibleMutability MutableList<@FlexibleNullability Video?>, @NonNull p1: @EnhancedNullability @FlexibleMutability MutableList<@FlexibleNullability Video?>)
+
+  /* fake */ override fun onBindViewHolder(@NonNull p0: @EnhancedNullability VideoViewHolder, p1: Int, @NonNull p2: @EnhancedNullability @FlexibleMutability MutableList<@FlexibleNullability Any?>)
+
+  @NonNull
+  /* fake */ override fun createViewHolder(@NonNull p0: @EnhancedNullability ViewGroup, p1: Int): @EnhancedNullability VideoViewHolder
+
+  /* fake */ override fun bindViewHolder(@NonNull p0: @EnhancedNullability VideoViewHolder, p1: Int)
+
+  /* fake */ override fun getItemViewType(p0: Int): Int
+
+  /* fake */ override fun setHasStableIds(p0: Boolean)
+
+  /* fake */ override fun getItemId(p0: Int): Long
+
+  /* fake */ override fun hasStableIds(): Boolean
+
+  /* fake */ override fun onViewRecycled(@NonNull p0: @EnhancedNullability VideoViewHolder)
+
+  /* fake */ override fun onFailedToRecycleView(@NonNull p0: @EnhancedNullability VideoViewHolder): Boolean
+
+  /* fake */ override fun hasObservers(): Boolean
+
+  /* fake */ override fun registerAdapterDataObserver(@NonNull p0: @EnhancedNullability AdapterDataObserver)
+
+  /* fake */ override fun unregisterAdapterDataObserver(@NonNull p0: @EnhancedNullability AdapterDataObserver)
+
+  /* fake */ override fun onAttachedToRecyclerView(@NonNull p0: @EnhancedNullability RecyclerView)
+
+  /* fake */ override fun onDetachedFromRecyclerView(@NonNull p0: @EnhancedNullability RecyclerView)
+
+  /* fake */ override fun notifyDataSetChanged()
+
+  /* fake */ override fun notifyItemChanged(p0: Int)
+
+  /* fake */ override fun notifyItemChanged(p0: Int, @Nullable p1: @EnhancedNullability Any?)
+
+  /* fake */ override fun notifyItemRangeChanged(p0: Int, p1: Int)
+
+  /* fake */ override fun notifyItemRangeChanged(p0: Int, p1: Int, @Nullable p2: @EnhancedNullability Any?)
+
+  /* fake */ override fun notifyItemInserted(p0: Int)
+
+  /* fake */ override fun notifyItemMoved(p0: Int, p1: Int)
+
+  /* fake */ override fun notifyItemRangeInserted(p0: Int, p1: Int)
+
+  /* fake */ override fun notifyItemRemoved(p0: Int)
+
+  /* fake */ override fun notifyItemRangeRemoved(p0: Int, p1: Int)
+
+  /* fake */ override operator fun equals(other: Any?): Boolean
+
+  /* fake */ override fun hashCode(): Int
+
+  /* fake */ override fun toString(): String
+
+}
+
+`
+Details: Internal error in declaration transformer: java.lang.IllegalStateException: Parent of this declaration is not a class: CLASS CLASS name:VideoAdapter modality:FINAL visibility:public [inner] superTypes:[androidx.recyclerview.widget.ListAdapter<com.dorflix.app.domain.model.Video, com.dorflix.app.ui.VideoAdapter.VideoViewHolder>]
+	at org.jetbrains.kotlin.ir.util.IrUtilsKt.getParentAsClass(IrUtils.kt:317)
+	at org.jetbrains.kotlin.backend.jvm.JvmInnerClassesSupport.createInnerClassConstructorWithOuterThisParameter(JvmInnerClassesSupport.kt:71)
+	at org.jetbrains.kotlin.backend.jvm.JvmInnerClassesSupport.getInnerClassConstructorWithOuterThisParameter(JvmInnerClassesSupport.kt:44)
+	at org.jetbrains.kotlin.backend.common.lower.InnerClassesLowering.lowerConstructor(InnerClassesLowering.kt:69)
+	at org.jetbrains.kotlin.backend.common.lower.InnerClassesLowering.transformFlat(InnerClassesLowering.kt:49)
+	at org.jetbrains.kotlin.backend.common.DeclarationTransformer.transformFlatRestricted$lambda$0(Lower.kt:238)
+	at org.jetbrains.kotlin.ir.declarations.StageController.restrictTo(PersistentApi.kt:11)
+	at org.jetbrains.kotlin.backend.common.DeclarationTransformer.transformFlatRestricted(Lower.kt:237)
+	at org.jetbrains.kotlin.backend.common.DeclarationTransformer.access$transformFlatRestricted(Lower.kt:211)
+	at org.jetbrains.kotlin.backend.common.DeclarationTransformer$Visitor.visitClass(Lower.kt:296)
+	at org.jetbrains.kotlin.ir.visitors.IrVisitorVoid.visitClass(IrVisitorVoid.kt:44)
+	at org.jetbrains.kotlin.ir.visitors.IrVisitorVoid.visitClass(IrVisitorVoid.kt:18)
+	at org.jetbrains.kotlin.ir.declarations.IrClass.accept(IrClass.kt:72)
+	at org.jetbrains.kotlin.ir.visitors.IrVisitorsKt.acceptVoid(IrVisitors.kt:11)
+	at org.jetbrains.kotlin.backend.common.DeclarationTransformer.lower(Lower.kt:221)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseFactoriesKt.createFilePhase$lambda$1(PhaseFactories.kt:88)
+	at org.jetbrains.kotlin.backend.common.phaser.PhaseBuildersKt$createSimpleNamedCompilerPhase$1.phaseBody(PhaseBuilders.kt:58)
+	at org.jetbrains.kotlin.config.phaser.NamedCompilerPhase.invoke(CompilerPhase.kt:102)
+	at org.jetbrains.kotlin.backend.common.phaser.PerformByIrFilePhase.invoke(PerformByIrFilePhase.kt:36)
+	... 48 more
+Caused by: java.lang.IllegalStateException: Parent of this declaration is not a class: CLASS CLASS name:VideoAdapter modality:FINAL visibility:public [inner] superTypes:[androidx.recyclerview.widget.ListAdapter<com.dorflix.app.domain.model.Video, com.dorflix.app.ui.VideoAdapter.VideoViewHolder>]
+	... 67 more
+
+

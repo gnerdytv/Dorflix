@@ -23,10 +23,12 @@ class VideoDownloader(private val context: Context) {
 
     private val downloadJobs = mutableMapOf<String, Job>()
 
-    // =Ê TIKTOK-STYLE: Intelligent Buffering Strategy
+    // = TIKTOK-STYLE: Intelligent Buffering Strategy
     private val corruptedSegments = mutableSetOf<String>() // URLs marked as corrupted
     private val segmentRedownloadJobs = mutableMapOf<String, Job>() // Background re-download jobs
     private val segmentCache = mutableMapOf<String, File>() // URL -> cached file mapping
+
+    private val downloadListeners = mutableListOf<DownloadListener>()
 
     companion object {
         // Global VideoDownloader instance for JNI calls
@@ -38,6 +40,18 @@ class VideoDownloader(private val context: Context) {
             instance = VideoDownloader(context)
             Log.i("VideoDownloader", "VideoDownloader instance initialized")
         }
+
+        // Add these new methods
+        @JvmStatic
+        fun addDownloadListener(listener: DownloadListener) {
+            instance.downloadListeners.add(listener)
+        }
+
+        @JvmStatic
+        fun removeDownloadListener(listener: DownloadListener) {
+            instance.downloadListeners.remove(listener)
+        }
+    
 
         // Download control methods (called from JNI) - Kotlin implementations, not native
         @JvmStatic
@@ -100,16 +114,19 @@ class VideoDownloader(private val context: Context) {
         @JvmStatic
         fun onDownloadProgress(url: String, downloaded: Long, total: Long) {
             Log.i("VideoDownloader", "Download progress: $url - ${downloaded}/${total}")
+            instance.downloadListeners.forEach { listener -> listener.onDownloadProgress(url, downloaded, total) }
         }
 
         @JvmStatic
         fun onDownloadComplete(url: String, localPath: String) {
             Log.i("VideoDownloader", "Download complete: $url -> $localPath")
+            instance.downloadListeners.forEach { listener -> listener.onDownloadComplete(url, localPath) }
         }
 
         @JvmStatic
         fun onDownloadError(url: String, error: String) {
             Log.e("VideoDownloader", "Download error: $url - $error")
+            instance.downloadListeners.forEach { listener -> listener.onDownloadError(url, error) }
         }
     }
 

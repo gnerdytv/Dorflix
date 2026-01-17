@@ -62,6 +62,7 @@ adb logcat -c; adb logcat -c; adb logcat -v time | Select-String -Pattern "(CRAS
 
 # Clean all Gradle build artifacts and native builds
 ./gradlew clean
+./gradlew assembleDebug
 ./gradlew clean assembleDebug
 
 # Also clean CMake artifacts if needed

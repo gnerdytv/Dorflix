@@ -61,7 +61,7 @@ class FeedFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        videoAdapter = VideoAdapter(binding.viewPager) { video ->
+        videoAdapter = VideoAdapter(binding.viewPager) { _ ->
             // Handle video click (e.g., toggle play/pause)
         }
 
@@ -173,7 +173,10 @@ class FeedFragment : Fragment() {
                 viewModel.error
             ) { videos, isLoading, error ->
                 Triple(videos, isLoading, error)
-            }.collectLatest { (videos, isLoading, error) ->
+            }.collectLatest { triple ->
+                val videos = triple.first
+                val isLoading = triple.second
+                val error = triple.third
 
                 // Handle loading state
                 android.util.Log.i("FeedFragment", "=== LOADING STATE: $isLoading ===")
@@ -276,14 +279,14 @@ class VideoAdapter(
     private val onVideoClick: (Video) -> Unit
 ) : androidx.recyclerview.widget.ListAdapter<Video, VideoAdapter.VideoViewHolder>(VideoDiffCallback()) {
 
-    private var currentPlayingPosition = -1
+    internal var currentPlayingPosition = -1
     private val SCROLL_BUFFER = 2 // Keep 2 videos alive around current position
     private val playbackState = mutableMapOf<String, Int>() // videoId -> current position (ms)
 
     // Deferred playback tracking
-    private var pendingPlaybackPosition = -1
-    private var pendingPlaybackSeekPosition = 0
-    private var playbackStartedForPosition = -1  // Track if playback actually started
+    internal var pendingPlaybackPosition = -1
+    internal var pendingPlaybackSeekPosition = 0
+    internal var playbackStartedForPosition = -1  // Track if playback actually started
 
     fun startPlaybackAtPosition(position: Int) {
         try {
@@ -506,8 +509,8 @@ class VideoAdapter(
 
                     if (needsDeferredPlayback) {
                         android.util.Log.d("SURFACE_DEBUG", "✅ DEFERRED PLAYBACK NEEDED - Starting playback")
-                        android.util.Log.d("SURFACE_DEBUG", "playbackStartedForPosition: ${adapter.playbackStartedForPosition}")
-                        val video = adapter.getItem(adapterPosition)
+                        android.util.Log.d("SURFACE_DEBUG", "playbackStartedForPosition: ${adapter?.playbackStartedForPosition}")
+                        val video = adapter!!.getItem(adapterPosition)
                         val seekPosition = adapter.pendingPlaybackSeekPosition
                         android.util.Log.d("SURFACE_DEBUG", "Video: ${video.id}, seekPosition: $seekPosition")
                         startPlayback(video, holder.surface, seekPosition)
@@ -788,7 +791,7 @@ class VideoAdapter(
                 android.util.Log.d("PLAYBACK_DEBUG", "Setting surface: $surface")
 
                 // VALIDATE SURFACE BEFORE USING
-                if (!surface.isValid) {
+                if (!surface.isValid()) {
                     android.util.Log.e("PLAYBACK_DEBUG", "❌ SURFACE VALIDATION FAILED - Surface is not valid!")
                     return
                 }
@@ -863,7 +866,7 @@ class VideoAdapter(
         fun resumePlayback() {
             if (!isPlaying && videoPlayerController != null) {
                 android.util.Log.d("VideoViewHolder", "Resuming playback for video: ${currentVideo?.id}")
-                videoPlayerController?.resume()
+                videoPlayerController?.play()
                 isPlaying = true
             }
         }
@@ -947,7 +950,7 @@ class SimpleVideoAdapter(
     }
 }
 
-private fun formatCount(count: Int): String {
+fun formatCount(count: Int): String {
     return when {
         count >= 1000000 -> String.format("%.1fM", count / 1000000.0)
         count >= 1000 -> String.format("%.1fK", count / 1000.0)
