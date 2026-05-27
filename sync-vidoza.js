@@ -4,14 +4,16 @@
  * sync-vidoza.js
  *
  * Scans the Vidoza API for all files, compares with database.json,
- * and appends new movies that don't exist yet.
+ * and appends new movies that don't exist yet. Then auto-commits
+ * and pushes to GitHub.
  *
  * Usage:
- *   node sync-vidoza.js
+ *   VIDOZA_API_KEY=your_key node sync-vidoza.js
  *
- * Environment variables (or edit below):
- *   VIDOZA_API_KEY  - Your Vidoza API key
- *   ZONE_URL        - The zone advertisement URL (optional, has default)
+ * Environment variables:
+ *   VIDOZA_API_KEY  - (required) Your Vidoza API key
+ *   GITHUB_TOKEN    - (required) GitHub personal access token for push
+ *   ZONE_URL        - (optional) Zone advertisement URL (has default)
  */
 
 'use strict';
@@ -19,12 +21,15 @@
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 // ---- CONFIG ----
 const API_KEY = process.env.VIDOZA_API_KEY;
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const ZONE_URL = process.env.ZONE_URL || 'https://motionless-bus.com/CDgc7m';
 const API_BASE = 'api.vidoza.net';
 const DB_PATH = path.join(__dirname, 'database.json');
+const REPO_DIR = __dirname;
 // ----------------
 
 /**
@@ -254,6 +259,34 @@ async function sync() {
   }
 
   console.log('\nTotal movies in database.json: ' + db.length);
+
+  // ---- GIT COMMIT & PUSH ----
+  if (newEntries.length > 0 && GITHUB_TOKEN) {
+    console.log('\n=== Pushing to GitHub ===');
+    try {
+      // Stage the database file
+      execSync('git add database.json', { cwd: REPO_DIR });
+      // Commit
+      var count = newEntries.length;
+      var commitMsg = 'Sync ' + count + ' new movie' + (count > 1 ? 's' : '') + ' from Vidoza';
+      execSync('git commit -m "' + commitMsg + '"', { cwd: REPO_DIR });
+      console.log('  Committed: ' + commitMsg);
+      // Push using token as password
+      var remoteUrl = 'https://dorflix:' + GITHUB_TOKEN + '@github.com/gnerdytv/Dorflix.git';
+      execSync('git push ' + remoteUrl + ' main', { cwd: REPO_DIR });
+      console.log('  Pushed to GitHub successfully.');
+    } catch (e) {
+      console.error('  Git error: ' + e.message);
+      console.log('  You can manually push with: git push');
+    }
+  } else if (newEntries.length > 0 && !GITHUB_TOKEN) {
+    console.log('\nGITHUB_TOKEN not set. Skipping git push.');
+    console.log('Manually push with:');
+    console.log('  git add database.json');
+    console.log('  git commit -m "Add new movies from Vidoza"');
+    console.log('  git push');
+  }
+
   console.log('\n=== Sync complete ===');
 }
 
