@@ -35,14 +35,3 @@ https://gnerdytv.github.io/Dorflix/?slug=tomorrow-war-2021-3xn34w5bwdk5
 
 3. Commit and push to GitHub
 4. Post your link: `https://gnerdytv.github.io/Dorflix/?slug=tomorrow-war-2021-3xn34w5bwdk5`
-
-## Vidoza API
-
-API key: `ovtgyju9e9dhb2g7565tsdqgdfnxpadhtksxktq4cbqkzt1rghwwtdcr0ing`
-
-- **Base URL**: `https://api.vidoza.net/v1`
-- **Auth**: `Authorization: Bearer <API_KEY>`
-- **Endpoints**:
-  - `GET /files/check?f[]=filecode` — Check file status
-  - `GET /folders` — List folders
-  - `GET /folders/{id}` — List folder contents
