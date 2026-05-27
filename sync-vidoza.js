@@ -23,6 +23,43 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+/**
+ * Load .env file and set process.env variables.
+ * This avoids needing external dotenv package.
+ */
+function loadEnvFile() {
+  var envPath = path.join(__dirname, '.env');
+  try {
+    if (!fs.existsSync(envPath)) {
+      return;
+    }
+    var content = fs.readFileSync(envPath, 'utf-8');
+    var lines = content.split('\n');
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i].trim();
+      // Skip empty lines and comments
+      if (line === '' || line.startsWith('#')) {
+        continue;
+      }
+      var eqIndex = line.indexOf('=');
+      if (eqIndex === -1) {
+        continue;
+      }
+      var key = line.substring(0, eqIndex).trim();
+      var val = line.substring(eqIndex + 1).trim();
+      // Only set if not already set in environment
+      if (!process.env[key]) {
+        process.env[key] = val;
+      }
+    }
+  } catch (e) {
+    // Silently ignore .env file errors
+  }
+}
+
+// Load .env file before reading config
+loadEnvFile();
+
 // ---- CONFIG ----
 const API_KEY = process.env.VIDOZA_API_KEY;
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;

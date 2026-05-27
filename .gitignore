@@ -1,3 +1,6 @@
 # Private planning documents - do not share
 elementaryPlan.md
 generatedPlan.md
+
+# Environment variables (API keys, tokens)
+.env
