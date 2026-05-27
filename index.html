@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dorflix - Watch Movies</title>
+  <meta name="description" content="Dorflix - Your movie link redirector">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">Dor<span>flix</span></a>
+  </header>
+
+  <main>
+    <div class="container" id="app">
+      <!-- Error state (hidden by default) -->
+      <div id="error" class="error-container hidden">
+        <div class="error-icon">&#9888;</div>
+        <p>No movie specified. Please use a valid Dorflix link.</p>
+        <a href="/" class="back-link">&larr; Go to Home</a>
+      </div>
+
+      <!-- Movie section (hidden by default) -->
+      <div id="movie-section" class="movie-section hidden">
+        <div class="movie-badge">Dorflix Movie</div>
+        <h1 id="movie-title">Movie Title</h1>
+        <p class="filecode">Filecode: <span id="movie-id">---</span></p>
+
+        <div class="movie-details">
+          <div class="label">Vidoza Link</div>
+          <div class="value" id="movie-link">---</div>
+        </div>
+
+        <button id="proceed-btn" class="proceed-btn">Proceed to Watch</button>
+        <p class="info-text">
+          By clicking, you will be redirected to the video source. A new tab will also open for additional content.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Dorflix &mdash; <a href="https://github.com/gnerdytv/Dorflix" target="_blank" rel="noopener">GitHub</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+/* Dorflix - Dark Netflix-style Theme */
+
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --bg-card: #1a1a2e;
+  --bg-card-hover: #252540;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --accent-red: #e50914;
+  --accent-red-hover: #f40612;
+  --accent-gold: #f5c518;
+  --border-color: #333333;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.6;
+}
+
+header {
+  width: 100%;
+  padding: 1.5rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%);
+}
+
+header .logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-red);
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+header .logo span {
+  color: var(--text-primary);
+  font-weight: 300;
+}
+
+main {
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  margin-top: 4rem;
+}
+
+/* Container card */
+.container {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+
+/* Hidden state */
+.hidden {
+  display: none !important;
+}
+
+/* Error state */
+.error-container {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.error-container .error-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--accent-red);
+}
+
+.error-container p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.error-container .back-link {
+  display: inline-block;
+  color: var(--accent-red);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.error-container .back-link:hover {
+  color: var(--accent-red-hover);
+}
+
+/* Movie section */
+.movie-section {
+  text-align: center;
+}
+
+.movie-badge {
+  display: inline-block;
+  background-color: rgba(229, 9, 20, 0.15);
+  color: var(--accent-red);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.movie-section h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.movie-section .filecode {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.movie-section .movie-details {
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.movie-section .movie-details .label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+}
+
+.movie-section .movie-details .value {
+  font-size: 0.95rem;
+  color: var(--accent-gold);
+  word-break: break-all;
+}
+
+/* Proceed button */
+.proceed-btn {
+  display: inline-block;
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: var(--accent-red);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 6px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  text-decoration: none;
+}
+
+.proceed-btn:hover {
+  background-color: var(--accent-red-hover);
+}
+
+.proceed-btn:active {
+  transform: scale(0.98);
+}
+
+/* Info text */
+.info-text {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.info-text a {
+  color: var(--accent-gold);
+  text-decoration: none;
+}
+
+.info-text a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+footer a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--text-primary);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  header {
+    padding: 1rem 1.25rem;
+  }
+
+  header .logo {
+    font-size: 1.4rem;
+  }
+
+  main {
+    padding: 1rem;
+    margin-top: 3.5rem;
+  }
+
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .movie-section h1 {
+    font-size: 1.5rem;
+  }
+
+  .proceed-btn {
+    font-size: 1rem;
+    padding: 0.85rem 1.5rem;
+  }
+}
