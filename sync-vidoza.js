@@ -139,85 +139,41 @@ function generateSlug(name, filecode) {
 }
 
 /**
- * Recursively list all files from all folders via the Vidoza API.
+ * List all files via the Vidoza API with pagination.
+ * Uses GET /v1/files which supports ?page=N for pagination.
  */
 async function listAllFiles() {
   var allFiles = [];
+  var page = 1;
+  var lastPage = 1;
 
-  // Step 1: Get all folders
-  console.log('Fetching folders...');
-  var foldersRes = await apiGet('/folders');
-  var folders = [];
+  console.log('Fetching files from Vidoza...');
 
-  if (foldersRes.data && Array.isArray(foldersRes.data)) {
-    folders = foldersRes.data;
-    console.log('  Found ' + folders.length + ' folders.');
-  } else {
-    console.log('  No folders found or could not list them.');
-  }
-
-  // Step 2: Get files from root (folder_id = 0 or empty)
-  console.log('Fetching root files...');
-  var rootRes = await apiGet('/files/check');
-  // The API requires specific file codes to check, so we need to handle differently.
-  // Instead, use /folders endpoint to list folder contents.
-
-  // Step 3: Get files from each folder
-  for (var i = 0; i < folders.length; i++) {
-    var folder = folders[i];
-    var folderId = folder.id || folder.folder_id;
-    if (!folderId) continue;
-
-    console.log('  Fetching folder: ' + (folder.name || folderId) + ' (id: ' + folderId + ')');
+  do {
     try {
-      var folderRes = await apiGet('/folders/' + folderId);
-      if (folderRes.data && Array.isArray(folderRes.data)) {
-        for (var j = 0; j < folderRes.data.length; j++) {
-          var file = folderRes.data[j];
-          // Files in folder listing have: id, name, size, created, etc.
-          if (file.id) {
-            allFiles.push(file);
+      var res = await apiGet('/files?page=' + page);
+      if (res.data && Array.isArray(res.data)) {
+        for (var j = 0; j < res.data.length; j++) {
+          if (res.data[j].id) {
+            allFiles.push(res.data[j]);
           }
         }
-        console.log('    -> ' + folderRes.data.length + ' files');
+        if (res.meta) {
+          lastPage = res.meta.last_page || page;
+        }
+        console.log('  Page ' + page + '/' + lastPage + ': found ' + res.data.length + ' files');
+      } else {
+        console.log('  No files found on page ' + page);
+        break;
       }
     } catch (e) {
-      console.error('    Error fetching folder ' + folderId + ': ' + e.message);
+      console.error('  Error fetching page ' + page + ': ' + e.message);
+      break;
     }
-  }
+    page++;
+  } while (page <= lastPage);
 
   return allFiles;
-}
-
-/**
- * Check the status of a list of file codes via the API.
- * The API only allows checking specific file codes, not listing all.
- * So we batch the files we found from folder listings.
- */
-async function checkFileStatus(filecodes) {
-  var results = [];
-
-  // API accepts multiple file codes: ?f[]=code1&f[]=code2
-  // But to avoid huge URLs, batch in groups of 50
-  var batchSize = 50;
-  for (var i = 0; i < filecodes.length; i += batchSize) {
-    var batch = filecodes.slice(i, i + batchSize);
-    var query = batch.map(function(code) {
-      return 'f[]=' + encodeURIComponent(code);
-    }).join('&');
-
-    try {
-      var res = await apiGet('/files/check?' + query);
-      if (res.data && Array.isArray(res.data)) {
-        results = results.concat(res.data);
-        console.log('  Checked ' + results.length + ' / ' + filecodes.length + ' files');
-      }
-    } catch (e) {
-      console.error('  Error checking batch: ' + e.message);
-    }
-  }
-
-  return results;
 }
 
 /**
@@ -235,23 +191,16 @@ async function sync() {
   }
   console.log('Existing movies in database.json: ' + db.length);
 
-  // Get files from folders (the API doesn't have a "list all files" endpoint)
-  var folderFiles = await listAllFiles();
+  // Get all files from Vidoza via /v1/files (paginated)
+  var allVidozaFiles = await listAllFiles();
 
-  if (folderFiles.length === 0) {
-    console.log('\nNo files found in folders.');
-    console.log('If you have files in your Vidoza account, try organizing them into folders first.');
-    console.log('Then run this script again.');
+  if (allVidozaFiles.length === 0) {
+    console.log('\nNo files found in your Vidoza account.');
   } else {
-    // Get detailed status for these files
-    var filecodes = folderFiles.map(function(f) { return f.id; });
-    console.log('\nChecking file status for ' + filecodes.length + ' files...');
-    var checkedFiles = await checkFileStatus(filecodes);
-
-    // Find new files
+    // Find new files not yet in the database
     var newEntries = [];
-    for (var k = 0; k < checkedFiles.length; k++) {
-      var file = checkedFiles[k];
+    for (var k = 0; k < allVidozaFiles.length; k++) {
+      var file = allVidozaFiles[k];
       if (!file.id) continue;
 
       if (!existingIds[file.id]) {
