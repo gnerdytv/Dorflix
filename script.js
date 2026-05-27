@@ -1,67 +1,128 @@
 // Dorflix - Movie Link Redirector
-// Parses slug from URL, looks up movie in database, handles redirect
+// Two modes:
+//   1. Homepage (no ?slug=) - lists all movies from database in a grid
+//   2. Redirect (?slug=...) - shows movie info and handles redirect
 
 (function() {
   'use strict';
 
   const ZONE_URL = 'https://motionless-bus.com/CDgc7m';
 
+  const homepageEl = document.getElementById('homepage');
+  const movieGridEl = document.getElementById('movie-grid');
   const appContainer = document.getElementById('app');
   const errorContainer = document.getElementById('error');
   const movieSection = document.getElementById('movie-section');
 
   /**
    * Read the slug from the URL query parameter.
-   * Expects: ?slug=the-matrix-abc123
    */
   function getSlugFromURL() {
-    const params = new URLSearchParams(window.location.search);
+    var params = new URLSearchParams(window.location.search);
     return params.get('slug');
   }
 
   /**
    * Extract filecode from the slug.
-   * The slug format is: movie-name-in-kebab-case-FILECODE
-   * We take everything after the last hyphen as the filecode.
+   * Slug format: movie-name-in-kebab-case-FILECODE
    */
   function extractFilecode(slug) {
     if (!slug) return null;
-    const lastHyphen = slug.lastIndexOf('-');
+    var lastHyphen = slug.lastIndexOf('-');
     if (lastHyphen === -1) return null;
     return slug.substring(lastHyphen + 1);
   }
 
   /**
-   * Fetch the database.json and find the movie by filecode.
+   * Fetch the entire database.
    */
-  async function findMovieByFilecode(filecode) {
+  async function fetchDatabase() {
     try {
-      const response = await fetch('database.json');
+      var response = await fetch('database.json');
       if (!response.ok) {
         throw new Error('Failed to load database');
       }
-      const database = await response.json();
-      return database.find(function(movie) {
-        return movie.id === filecode;
-      }) || null;
+      return await response.json();
     } catch (err) {
       console.error('Error loading database:', err);
-      return null;
+      return [];
     }
   }
 
   /**
-   * Display movie information on the page.
+   * Find a movie by filecode in the database.
+   */
+  async function findMovieByFilecode(filecode) {
+    var database = await fetchDatabase();
+    return database.find(function(movie) {
+      return movie.id === filecode;
+    }) || null;
+  }
+
+  // ================================================================
+  // HOMEPAGE MODE - render movie grid
+  // ================================================================
+
+  /**
+   * Render the movie grid with all movies from the database.
+   */
+  async function renderHomepage() {
+    var database = await fetchDatabase();
+
+    homepageEl.classList.remove('hidden');
+    appContainer.classList.add('hidden');
+
+    if (!database || database.length === 0) {
+      movieGridEl.innerHTML =
+        '<div class="empty-state">' +
+          '<div class="empty-icon">&#127916;</div>' +
+          '<p>No movies in the database yet.</p>' +
+        '</div>';
+      return;
+    }
+
+    var html = '';
+    for (var i = 0; i < database.length; i++) {
+      var movie = database[i];
+      var url = window.location.pathname.replace(/\/?$/, '/') + '?slug=' + encodeURIComponent(movie.slug);
+      html +=
+        '<a href="' + url + '" class="movie-card">' +
+          '<div class="card-title">' + escapeHtml(movie.name) + '</div>' +
+          '<div class="card-id">' + escapeHtml(movie.id) + '</div>' +
+          '<div class="card-link">' + escapeHtml(movie.vidozaUrl) + '</div>' +
+          '<div class="card-arrow">&#8594;</div>' +
+        '</a>';
+    }
+    movieGridEl.innerHTML = html;
+  }
+
+  /**
+   * Simple HTML escaping.
+   */
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  // ================================================================
+  // REDIRECT MODE - show movie and handle redirect
+  // ================================================================
+
+  /**
+   * Display movie information and handle the proceed button.
    */
   function displayMovie(movie) {
+    homepageEl.classList.add('hidden');
+    appContainer.classList.remove('hidden');
     movieSection.classList.remove('hidden');
     errorContainer.classList.add('hidden');
 
     document.getElementById('movie-title').textContent = movie.name;
     document.getElementById('movie-id').textContent = movie.id;
 
-    const proceedBtn = document.getElementById('proceed-btn');
-    const newBtn = proceedBtn.cloneNode(true);
+    var proceedBtn = document.getElementById('proceed-btn');
+    var newBtn = proceedBtn.cloneNode(true);
     proceedBtn.parentNode.replaceChild(newBtn, proceedBtn);
 
     newBtn.addEventListener('click', function(e) {
@@ -79,30 +140,25 @@
    * Show an error message.
    */
   function showError(message) {
+    homepageEl.classList.add('hidden');
+    appContainer.classList.remove('hidden');
     movieSection.classList.add('hidden');
     errorContainer.classList.remove('hidden');
     errorContainer.querySelector('p').textContent = message;
   }
 
   /**
-   * Initialize the app.
+   * Handle the redirect (slug) flow.
    */
-  async function init() {
-    const slug = getSlugFromURL();
-
-    if (!slug) {
-      showError('No movie specified. Please use a valid Dorflix link.');
-      return;
-    }
-
-    const filecode = extractFilecode(slug);
+  async function handleRedirect(slug) {
+    var filecode = extractFilecode(slug);
 
     if (!filecode) {
       showError('Invalid link format. Please use a valid Dorflix link.');
       return;
     }
 
-    const movie = await findMovieByFilecode(filecode);
+    var movie = await findMovieByFilecode(filecode);
 
     if (!movie) {
       showError('Movie not found in database.');
@@ -110,6 +166,23 @@
     }
 
     displayMovie(movie);
+  }
+
+  // ================================================================
+  // INIT
+  // ================================================================
+
+  /**
+   * Initialize the app - decide which mode based on URL.
+   */
+  async function init() {
+    var slug = getSlugFromURL();
+
+    if (slug) {
+      await handleRedirect(slug);
+    } else {
+      await renderHomepage();
+    }
   }
 
   // Run when DOM is ready

@@ -57,7 +57,7 @@ header .logo span {
 
 main {
   width: 100%;
-  max-width: 600px;
+  max-width: 1200px;
   padding: 2rem;
   margin-top: 4rem;
 }
@@ -199,6 +199,125 @@ main {
   text-decoration: underline;
 }
 
+/* Homepage */
+.homepage {
+  display: block;
+}
+
+.homepage.hidden {
+  display: none;
+}
+
+.homepage-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.homepage-header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.homepage-header .subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  padding-bottom: 2rem;
+}
+
+.movie-card {
+  background-color: var(--bg-secondary);
+  border-radius: 10px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.movie-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-gold));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.movie-card:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--accent-red);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(229, 9, 20, 0.15);
+}
+
+.movie-card:hover::before {
+  opacity: 1;
+}
+
+.movie-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.movie-card .card-id {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-family: monospace;
+  margin-bottom: 0.75rem;
+}
+
+.movie-card .card-link {
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  word-break: break-all;
+  opacity: 0.8;
+}
+
+.movie-card .card-arrow {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+  color: var(--accent-red);
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.movie-card:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+
+.empty-state .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
 /* Footer */
 footer {
   width: 100%;
@@ -219,6 +338,18 @@ footer a:hover {
 
 /* Responsive */
 @media (max-width: 640px) {
+  main {
+    max-width: 100%;
+  }
+
+  .movie-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .homepage-header h1 {
+    font-size: 1.6rem;
+  }
   header {
     padding: 1rem 1.25rem;
   }

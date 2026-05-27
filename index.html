@@ -13,6 +13,17 @@
   </header>
 
   <main>
+    <!-- Homepage: Movie Grid (hidden when ?slug= is present) -->
+    <div id="homepage" class="homepage">
+      <div class="homepage-header">
+        <h1>Movie Collection</h1>
+        <p class="subtitle">Click a movie to watch</p>
+      </div>
+      <div id="movie-grid" class="movie-grid">
+        <!-- Movie cards rendered by JS -->
+      </div>
+    </div>
+
     <div class="container" id="app">
       <!-- Error state (hidden by default) -->
       <div id="error" class="error-container hidden">
@@ -21,7 +32,7 @@
         <a href="/" class="back-link">&larr; Go to Home</a>
       </div>
 
-      <!-- Movie section (hidden by default) -->
+      <!-- Movie redirect section (hidden by default) -->
       <div id="movie-section" class="movie-section hidden">
         <div class="movie-badge">Dorflix Movie</div>
         <h1 id="movie-title">Movie Title</h1>
